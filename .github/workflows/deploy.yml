@@ -28,10 +28,10 @@ jobs:
       - name: Deploy
         env:
           WEB_PATH: ${{ secrets.AWS_EC2_WEB_PATH }}
-          REMOTE: ${{ secrets.AWS_EC2_REMOTE }}
+          SSH_DEST: ${{ secrets.AWS_EC2_SSH_DEST }}
         run: |
           rsync --progress --recursive --delete \
           --exclude .git/ --exclude .github/ \
           --rsync-path="mkdir -p $WEB_PATH/$REPO_NAME && rsync" \
-          $REPO_PATH/$REPO_NAME/. $REMOTE:$WEB_PATH/$REPO_NAME
+          $REPO_PATH/$REPO_NAME/. $SSH_DEST:$WEB_PATH/$REPO_NAME
 
