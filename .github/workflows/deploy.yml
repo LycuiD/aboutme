@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_PATH: ${{ github.workspace }}
-      REPOSITORY: ${{ github.repository }}
+      REPO: ${{ github.repository }}
     steps:
       - name: Set repo name
-        run: echo "::set-env name=REPO::$(echo $REPOSITORY | cut -d / -f 2)"
+        run: echo "::set-env name=REPO_NAME::$(echo $REPO | cut -d / -f 2)"
 
       - name: Install SSH client and start ssh-agent.
         uses: webfactory/ssh-agent@v0.2.0
@@ -33,5 +33,5 @@ jobs:
           rsync --progress --recursive --delete \
           --exclude .git/ --exclude .github/ \
           --rsync-path="mkdir -p $WEB_PATH/$REPO_NAME && rsync" \
-          $REPO_PATH/$REPO_NAME/. $SSH_DEST:$WEB_PATH/$REPO_NAME
+          $REPO_PATH/. $SSH_DEST:$WEB_PATH/$REPO_NAME
 
