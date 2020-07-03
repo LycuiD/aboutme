@@ -28,6 +28,7 @@ jobs:
       - name: Deploy
         env:
           WEB_PATH: ${{ secrets.AWS_EC2_WEB_PATH }}
+          REMOTE: ${{ secrets.AWS_EC2_REMOTE }}
         run: |
           rsync --progress --recursive --delete \
           --exclude .git/ --exclude .github/ \
