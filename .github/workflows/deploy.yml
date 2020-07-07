@@ -29,7 +29,7 @@ jobs:
           USERNAME: ${{ secrets.EC2_USERNAME }}
           HOST: ${{ secrets.EC2_HOST }}
         run: |
-          rsync --avP --delete --exclude=".git*" \
+          rsync -avP --delete --exclude=".git*" \
           --rsync-path="mkdir -p $WEB_PATH/$REPO_NAME && rsync" \
           -e "ssh -o StrictHostKeyChecking=no" \
           $REPO_PATH/. $USERNAME@$HOST:$WEB_PATH/$REPO_NAME
