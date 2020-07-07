@@ -27,13 +27,12 @@ jobs:
 
       - name: Deploy
         env:
-          WEB_PATH: ${{ secrets.AWS_EC2_WEB_PATH }}
-          SSH_DEST: ${{ secrets.AWS_EC2_SSH_DEST }}
+          WEB_PATH: ${{ secrets.EC2_WEB_PATH }}
+          USERNAME: ${{ secrets.EC2_USERNAME }}
+          HOST: ${{ secrets.EC2_HOST }}
         run: |
-          ls $REPO_PATH
-          rsync --progress --recursive --delete \
-          --exclude .git/ --exclude .github/ \
+          rsync --avP --delete --exclude=".git*" \
           --rsync-path="mkdir -p $WEB_PATH/$REPO_NAME && rsync" \
           -e "ssh -o StrictHostKeyChecking=no" \
-          $REPO_PATH/. $SSH_DEST:$WEB_PATH/$REPO_NAME
+          $REPO_PATH/. $USERNAME@$HOST:$WEB_PATH/$REPO_NAME
 
