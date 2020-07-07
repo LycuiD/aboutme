@@ -16,7 +16,7 @@ jobs:
       - name: Install SSH client and start ssh-agent.
         uses: webfactory/ssh-agent@v0.2.0
         with:
-          ssh-private-key: ${{ secrets.AWS_EC2_DEPLOY_KEY }}
+          ssh-private-key: ${{ secrets.EC2_DEPLOY_KEY }}
 
       - name: Clone and checkout.
         uses: actions/checkout@v2
