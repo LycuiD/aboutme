@@ -8,13 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_PATH: ${{ github.workspace }}
-      REPO: ${{ github.repository }}
+      REPO_NAME: "aboutme"
     steps:
-      - name: Set repo name
-        run: echo "::set-env name=REPO_NAME::$(echo $REPO | cut -d / -f 2)"
-
       - name: Install SSH client and start ssh-agent.
-        uses: webfactory/ssh-agent@v0.2.0
+        uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.EC2_DEPLOY_KEY }}
 
