@@ -11,14 +11,20 @@
     *, ::after, ::before {
       font-family: monospace;
       box-sizing: border-box;
+      color: #393939;
+      line-height: 1.2rem;
     }
     html, body {
       padding: 0;
       margin: 0;
     }
-    pre { white-space: pre-wrap; }
-    a { text-decoration: none; }
-    h1.inline, h2, h3.inline, h4, h5, h6 { display: inline; }
+    a:hover { border-bottom: 1px solid blue; }
+    a, a:visited {
+      text-decoration: none;
+      color: blue;
+    }
+    h1, h2, h3, h4, h5, strong,
+    h1 *, h2 *, h3 *, h4 *, h5 *, strong * { color: black; }
     hr {
       border: none;
       height: 4px;
@@ -30,11 +36,14 @@
       margin: 0;
       list-style-type: none;
     }
+    ul li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+    }
     ul li::before {
       content: '[*]';
       font-weight: 100;
-      padding-right: 1rem;
-      padding-left: .5rem;
+      margin-right: .5rem;
       text-shadow: none;
     }
     ul.custom li:before {
@@ -43,6 +52,14 @@
     .container {
       padding-left: 15px;
       padding-right: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 65rem;
+    }
+    .shifted {
+      padding-left: 3em;
+      margin-top: 1em;
+      margin-bottom: 1em;
       width: 100%;
     }
     section.bordered {
@@ -54,17 +71,29 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Abhishek S. Kadam</h1>
-    <hr />
+  <header class="container"><h2>Abhishek S. Kadam</h2></header>
+  <main class="container">
     <section id="info" class="bordered">
-      <div>Email: <a href="mailto:abhishekk19@gmail.com">abhishekk19@gmail.com</a></div>
-      <div>Linkedin: <a target="_blank" href="https://linkedin.com/in/abhishek-kadam-26a06170">https://linkedin.com/in/abhishek-kadam-26a06170</a></div>
-      <div>Github: <a target="_blank" href="https://github.com/lycuid">https://github.com/lycuid</a></div>
-      <div>Stack Overflow: <a target="_blank" href="https://stackoverflow.com/users/3065657/lycuid">https://stackoverflow.com/users/3065657/lycuid</a></div>
-      <div>Personal-Webpage: <a target="_blank" href="https://lycuid.dev">https://lycuid.dev</a></div>
+      <div>
+        Email: <a href="mailto:abhishekk19@gmail.com">abhishekk19@gmail.com</a>
+      </div>
+      <div>
+        Linkedin:
+        <a target="_blank" href="https://linkedin.com/in/abhishek-kadam-26a06170">
+          https://linkedin.com/in/abhishek-kadam-26a06170
+        </a>
+      </div>
+      <div>
+        Github:
+        <a target="_blank" href="https://github.com/lycuid">
+          https://github.com/lycuid
+        </a>
+      </div>
+      <div>
+        Personal-Webpage:
+        <a target="_blank" href="https://lycuid.dev">https://lycuid.dev</a>
+      </div>
     </section>
-    <hr />
 
     <section id="achievements" class="bordered">
       <div><strong><u>Achievements:</u></strong></div>
@@ -72,50 +101,49 @@
       <strong>
         <span style="color: #427FE8;">G</span><span style="color: #EB2041;">O</span><span style="color: #FBC145;">O</span><span style="color: #427FE8;">G</span><span style="color: #00BE61;">L</span><span style="color: #EB2041;">E</span>
       </strong>
-      for a job (through competitive programming). Unfortunately didn't make it through the interview. Still, it is the Biggest Achievement of my life so far.
+      for a job interview. Unfortunately didn't got it. Still, so far, it's the Biggest Achievement of my life.
     </section>
-    <hr />
+
     <section id="summary">
       <h3><u>Summary</u></h3>
-      <ul class="custom">
-        <li data-custom="2011:">Started out with programming (in school), making video games using java/c++, worked up to writing scripts in python (landed a part time job).</li>
-        <li data-custom="2013:">Continued making websites(php, js etc) and desktop applications(python, c++) as a hobby and paid/free projects for clients.</li>
-        <li data-custom="2014:">Started participating in online competitve coding (haskell, python, c++).</li>
-        <li data-custom="2019:">First official job as a full stack developer (never stopped working on side projects [coding -&gt; hobby]).</li><br />
-      </ul>
-      <u>What defines me:</u>
       <ul>
-        <li>Minimalist.</li>
-        <li>Love solving problems, puzzles.
-        <li>interested in various paradigms and approach of different programming language (still find myself googling for syntax).</li>
-        <li>Always eager about new technologies and programming languages, but very passionate about old one.</li>
-        <li>First ever coding project (2011) was a video game in Java (school).</li>
-        <li>love video games (playing and creating), music (rock/metal 90's and before), food etc.</li>
+        <li>Software Engineer, and a minimalist (of sorts).</li>
+        <li>
+          <code>Speciality:
+            <ul class="custom">
+              <li data-custom="*">Parsers, Lexers, Evaluators.</li>
+              <li data-custom="*">System Programming.</li>
+              <li data-custom="*">Web services and automation (devops).</li>
+            </ul>
+          </code>
+        </li>
+        <li>Currently dabbling in web technologies.</li>
+        <li>Believe in writing software as if it is the 80's.</li>
+        <li>Comfortable working on/with GNU/Linux.</li>
         <li>Dropped out of college 2nd year (certain reasons), Computer Science (B. Tech).</li>
+        <li>love solving problems, puzzles, video games, old music, food etc.
       </ul>
+
       <u><h3>Coding Hobbies</h3></u>
-      <u>Goole codejam:</u> @lycuid (participant since 2014.)<br />
-      <small>(Python, Haskell, C++)</small><br />
-      <u>Goole foobar (2017):</u> completed.<br />
-      <small>(Python 3)</small></br>
-      <u>CodeWars:</u> <a target="_blank" href="https://www.codewars.com/users/lycuid"> https://www.codewars.com/users/lycuid</a><br />
+      <u>CodeWars</u>: <a target="_blank" href="https://www.codewars.com/users/lycuid">https://www.codewars.com/users/lycuid</a>
       <small>(Haskell, Golang, C++, Python 3)</small><br />
-      <u>Project Euler:</u> <small>(Haskell)</small><br />
-      <u>LeetCode:</u> <a target="_blank" href="https://leetcode.com/lycuid"> https://leetcode.com/lycuid</a><br />
+      <u>LeetCode</u>: <a target="_blank" href="https://leetcode.com/lycuid">https://leetcode.com/lycuid</a>
       <small>(Golang)</small><br />
+      <u>Project Euler</u>: <small>(Haskell)</small><br />
     </section>
     <hr />
+
     <section id="education">
       <h3><u>Education History:</u></h3>
-      <div><u><u>School:</u></u></div>
+      <div><u>School</u>:</div>
       <div>S.T.E.S's Sinhagad Public School (2010)</div>
       <div>Grade: A (85%)</div>
-      <div><u><u>Higher Secondary School:</u></u> (Junior College - class 11<sup>th</sup>, 12<sup>th</sup>)</div>
+      <div><u>Higher Secondary School</u>: (Junior College - class 11<sup>th</sup>, 12<sup>th</sup>)</div>
       <div>S.T.E.S's Sinhagad Public School</div>
       <div>Branch: Computer Science, Mathematics. (2012)</div>
       <div>Grade: A (72%)</div>
 
-      <div><u><u>College:</u></u></div>
+      <div><u>College</u>:</div>
       <div>S.T.E.S's Sinhagad Public School</div>
       <div>Branch: Computer Science (B. Tech). (Dropped out in 2014 (for certain reasons))</div>
       <div>Grade: --</div>
@@ -125,61 +153,62 @@
       <h3><u>Employment History</u></h3>
       <strong><u>Senior Full Stack Developer</u></strong> @ Care24 (Aegis Care Advisors Pvt. Ltd.)<br />
       <small>Sep 17 - Oct 19 (~2 years)</small><br /><br />
-      <u><u>Phase 1:</u></u> (~1.5 months) (web developer)
+      <u>Phase 1</u>: (~1.5 months) (web developer)
       <ul>
-        <li>Maintaining the existing code</li>
+        <li>Maintaining the legacy code</li>
         <li>refactoring, testing (python, js / angularjs) etc.</li>
-        <li>writing REST APIs</li>
-        <li>Business Metric visualization dashboards, reports (Angularjs, react).</li>
+        <li>Creating REST APIs</li>
+        <li>Business Metric visualization on web (angularjs, reactjs).</li>
       </ul>
-      <pre>
-    <u>Front-end Technologies:</u>
-    Reactjs (\w webpack, babel) | AngularJs | (Lots of vanilla js)
-    <u>Back-end Technologies:</u>
-    Django 1.8 | Python 2 | Django REST-Framework
-    <u>Other:</u>
-    Postgresql
-      </pre>
-      <u><u>Phase 2:</u></u> (2 years) (junior -&gt; senior web developer)
+      <div class="shifted">
+        <u>Front-end Technologies</u>:<br />
+        Reactjs (\w webpack, babel) | AngularJs | (Lots of vanilla js)<br />
+        <u>Back-end Technologies</u>:<br />
+        Django 1.8 | Python 2 | Django REST-Framework<br />
+        <u>Other</u>:<br />
+        Postgresql<br />
+      </div>
+      <u>Phase 2</u>: (2 years) (junior -&gt; senior full stack developer)
       <ul>
-        <li>complete server setup, deployment workflow and backend dev for 2 of the companies standalone application. (python (django), sh, AWS)</li>
-        <li>Email, SMS, IVR Integrations. (python, js)</li>
-        <li>rewrote/updated deployment-process/scripts for company's main application (sh).</li>
-        <li>Paymentment gateway Integration (python).</li>
+        <li>Entire devops and backend dev for 2 standalone company products (AWS, python, sh).</li>
+        <li>Cost reduction for primary cloud infrastructure (AWS, devops).</li>
+        <li>Revamped deployment for primary application (sh, AWS codedeploy, Bitbucket pipeline).</li>
+        <li>Consumer's Email, SMS, IVR Automation and third party integrations (python, js).</li>
+        <li>Payment gateway Integration (python).</li>
         <li>Verification &amp; Background check Tool (\w third party integration).</li>
-        <li>Email Management Tool (\w Gmail API) and automate tickets based on replies.</li>
-        <li>Web Application to automate Bookings (React, Typescript)</li>
+        <li>Automating tickets and Email Management Tool (GSuite, Gmail API).</li>
+        <li>Automating Consumer Bookings (React, Typescript)</li>
         <li>other third party integrations: Google maps, Gmail API etc (python, js).</li>
         <li>new features, automatation tools for existing CRM, real time notifications etc.</li>
       </ul>
-      <pre>
-    <u>Front-end Technologies:</u>
-    Reactjs (\w webpack, ts) | Typescript | AngularJs | Angular 8
-    <u>Back-end Technologies:</u>
-    Django 1.8/2.2 | Python 2/3 | Shell | Django REST Framework
-    <u>Other:</u>
-    AWS | Redis | RabbitMQ | WebSockets | Celery | OAuth2 | Apollo2 | GraphQL | Postgresql
-      </pre>
+      <div class="shifted">
+        <u>Front-end Technologies</u>:<br />
+        Reactjs (\w webpack, ts) | Typescript | AngularJs | Angular 8<br />
+        <u>Back-end Technologies</u>:<br />
+        Django 1.8/2.2 | Python 2/3 | Shell | Django REST Framework<br />
+        <u>Other</u>:<br />
+        AWS | Redis | RabbitMQ | WebSockets | Celery | OAuth2 | Apollo2 | GraphQL | Postgresql<br />
+      </div>
       <br />
 
-      <strong><u>Script Writer and Web/Desktop App Developer</u></strong> freelancer (individual)<br />
+      <strong><u>Script Writer and Web/Desktop App Developer</u></strong> freelancer<br />
       <small>Mar 12 - Sep 17 (&gt; 5 years)</small><br />
       <p>worked with different technologies, in quite a few different areas of market, as required by the client.</p>
-      <pre>
-    <u>Languages used</u>
-    PHP | Python (2.x, 3.x) | C/C++ | Java
-      </pre>
+      <div class="shifted">
+        </u>Languages used</u>:<br />
+        PHP | Python (2.x, 3.x) | C/C++ | Java
+      </div>
     </section>
     <hr />
-
+  </main>
+  <footer class="container">
     <section id="extra" class="bordered">
-      <div><u>Other technologies I use:</u> (non professional, side projects (github) etc)</div><br />
-      <div><u><strong>Regularly:</strong></u> Haskell.</div>
-      <div><u><strong>Frequently:</strong></u> C/C++, Go, GatsbyJs.</div>
-      <div><u><strong>Occasionally:</strong></u> Clisp, Rust, NextJs.</div>
+      <div><u>Other technologies I use</u>: (non professional, side projects (github) etc)</div><br />
+      <div><strong><u>Regularly</u>:</strong> Haskell, C/C++, Go.</div>
+      <div><strong><u>Frequently</u>:</strong> Rust, GatsbyJs.</div>
+      <div><strong><u>Occasionally</u>:</strong> Clisp, NextJs.</div>
     </section>
-    <hr />
-  </div>
+  </footer>
 </body>
 </html>
 
