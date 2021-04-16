@@ -2,34 +2,38 @@
 <html lang="en">
 <head>
   <title>Abhishek Kadam</title>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%2210%22%20fill%3D%22white%22%20stroke%3D%22none%22%2F%3E%3Ctext%20fill%3D%22black%22%20x%3D%226%22%20y%3D%2215%22%3E%CE%BB%3C%2Ftext%3E%3C%2Fsvg%3E" />
 
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%2210%22%20fill%3D%22white%22%20stroke%3D%22none%22%2F%3E%3Ctext%20fill%3D%22black%22%20x%3D%226%22%20y%3D%2215%22%3E%CE%BB%3C%2Ftext%3E%3C%2Fsvg%3E" />
   <style>
+    :root {
+      --color-primary:    #393939;
+      --color-secondary:  #131313;
+    }
     *, ::after, ::before {
-      font-family: monospace;
       box-sizing: border-box;
-      color: #393939;
-      line-height: 1.2rem;
     }
-    html, body {
-      padding: 0;
-      margin: 0;
+    html {
+      font-family: monospace;
+      background-color: white;
+      color: var(--color-primary);
     }
+    body { margin: 0; padding: 0; }
     a:hover { border-bottom: 1px solid blue; }
     a, a:visited {
       text-decoration: none;
       color: blue;
     }
     h1, h2, h3, h4, h5, strong,
-    h1 *, h2 *, h3 *, h4 *, h5 *, strong * { color: black; }
+    h1 *, h2 *, h3 *, h4 *, h5 *, strong * { color: var(--color-secondary); }
     hr {
       border: none;
       height: 4px;
-      border-top: 1px dashed #131313;
-      border-bottom: 1px dashed #131313;
+      border-top:     1px dashed var(--color-secondary);
+      border-bottom:  1px dashed var(--color-secondary);
     }
     ul {
       padding: 0;
@@ -56,7 +60,7 @@
       margin-right: auto;
       max-width: 65rem;
     }
-    .shifted {
+    .padded {
       padding-left: 3em;
       margin-top: 1em;
       margin-bottom: 1em;
@@ -65,8 +69,8 @@
     section.bordered {
       margin: 10px 0;
       padding: 25px 15px;
-      border: 1px solid black;
-      box-shadow: 3px 3px black;
+      border: 1px solid var(--color-primary);
+      box-shadow: 3px 3px var(--color-primary);
     }
   </style>
 </head>
@@ -79,15 +83,11 @@
       </div>
       <div>
         github:
-        <a target="_blank" href="https://github.com/lycuid">
-          https://github.com/lycuid
-        </a>
+        <a target="_blank" href="https://github.com/lycuid">https://github.com/lycuid</a>
       </div>
       <div>
         linkedin:
-        <a target="_blank" href="https://linkedin.com/in/abhishek-kadam-26a06170">
-          https://linkedin.com/in/abhishek-kadam-26a06170
-        </a>
+        <a target="_blank" href="https://linkedin.com/in/abhishek-kadam-26a06170">https://linkedin.com/in/abhishek-kadam-26a06170</a>
       </div>
       <div>
         personal webpage:
@@ -107,23 +107,21 @@
       <h3><u>Summary</u></h3>
       <ul>
         <li>Software Engineer, and a minimalist (of sorts).</li>
-        <li>Casual distro/wm hopper, enthusiastic about *nix systems.</li>
+        <li>Enthusiastic about *nix systems, casual distro/wm hopper.</li>
         <li>
           <code>Software Interests:
             <ul class="custom">
               <li data-custom="-">Parsers, Lexers, Evaluators.</li>
-              <li data-custom="-"><span>Writing suckless-<i>like</i> software.</span></li>
+              <li data-custom="-"><span>Writing <i>suckless-like</i> software.</span></li>
               <li data-custom="-">System Programming.</li>
               <li data-custom="-">Reincarnating old video games, solving puzzles.</li>
-              <li data-custom="-">life long ricing of my GNU/Linux.</li>
+              <li data-custom="-">Ricing and automating stuff on GNU/Linux.</li>
             </ul>
           </code>
         </li>
-        <li>Currently dabbling in web technologies (~3 years, professionally).</li>
-        <li>Believe in writing software as if it is the 80's.</li>
-        <li>Comfortable working on/with GNU/Linux.</li>
+        <li>Currently dabbling in web technologies (>3 years, professionally).</li>
         <li>Dropped out of college 2nd year (certain reasons), Computer Science (B. Tech).</li>
-        <li>love solving problems, puzzles, video games, old music, food etc.</li>
+        <li>love solving puzzles, video games, music etc.</li>
       </ul>
 
       <u><h3>Coding Hobbies</h3></u>
@@ -158,13 +156,13 @@
       <strong><u>Phase 1</u></strong>: (~1.5 months) (web developer)
       <ul>
         <li>Maintaining the legacy code</li>
-        <li>refactoring, testing (python, js / angularjs) etc.</li>
+        <li>refactoring, testing (python, js) etc.</li>
         <li>Creating REST APIs</li>
-        <li>Business Metric visualization on web (angularjs, reactjs).</li>
+        <li>Business Metric visualization (angularjs, reactjs).</li>
       </ul>
-      <div class="shifted">
+      <div class="padded">
         <strong><u>Front-end Technologies</u></strong>:<br />
-        Reactjs (\w webpack, babel) | AngularJs | (Lots of vanilla js)<br />
+        Reactjs (\w webpack, babel) | AngularJs | Lots of vanilla js<br />
         <strong><u>Back-end Technologies</u></strong>:<br />
         Django 1.8 | Python 2 | Django REST-Framework<br />
         <strong><u>Other</u></strong>:<br />
@@ -172,9 +170,9 @@
       </div>
       <strong><u>Phase 2</u></strong>: (2 years) (junior -&gt; senior full stack developer)
       <ul>
-        <li>Entire devops and backend dev for 2 standalone company products (AWS, python, sh).</li>
-        <li>Cost reduction for primary cloud infrastructure (AWS, devops).</li>
-        <li>Revamped deployment for primary application (sh, AWS codedeploy, Bitbucket pipeline).</li>
+        <li>Entire devops and backend dev for 2 standalone company products (AWS, python, shell).</li>
+        <li>Cost reduction for primary VPS infrastructure (AWS, devops).</li>
+        <li>Revamped deployment for primary application (shell, AWS, Bitbucket).</li>
         <li>Consumers' Email, SMS, IVR Automation and third party integrations (python, js).</li>
         <li>Payment gateway Integration (python).</li>
         <li>Verification and Background check Tool (\w third party integration).</li>
@@ -183,22 +181,22 @@
         <li>other third party integrations: Google maps, Gmail API etc (python, js).</li>
         <li>new features, automatation tools for existing CRM, real time notifications etc.</li>
       </ul>
-      <div class="shifted">
+      <div class="padded">
         <strong><u>Front-end Technologies</u></strong>:<br />
-        Reactjs (\w webpack, ts) | Typescript | AngularJs | Angular 8<br />
+        Reactjs (\w webpack) | Typescript | AngularJs | Angular 8<br />
         <strong><u>Back-end Technologies</u></strong>:<br />
         Django 1.8/2.2 | Python 2/3 | Shell | Django REST Framework<br />
         <strong><u>Other</u></strong>:<br />
-        AWS | Apollo2 | GraphQL | Redis | RabbitMQ | Postgresql<br />
+        AWS | Apollo2/GraphQL | Redis | RabbitMQ | Postgresql<br />
       </div>
       <br />
 
       <strong><u>Script Writer and Web/Desktop App Developer</u></strong> freelancer<br />
       <small>Mar 12 - Sep 17 (&gt; 5 years)</small><br />
       <p>worked with different technologies, in quite a few different areas of market, as required by the client.</p>
-      <div class="shifted">
+      <div class="padded">
         </u>Languages used</u>:<br />
-        PHP | Python (2.x, 3.x) | C/C++ | Java
+        PHP | Python 2/3 | C/C++
       </div>
     </section>
     <hr />
