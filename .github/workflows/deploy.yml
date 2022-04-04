@@ -1,14 +1,12 @@
 name: deploy
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
 jobs:
   deploy-site:
     runs-on: ubuntu-latest
-    env:
-      REPO_PATH: ${{ github.workspace }}
-      REPO_NAME: ${{ github.event.repository.name }}
     steps:
       - name: Clone and checkout.
         uses: actions/checkout@v2
@@ -27,7 +25,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          S3_ASSETS_BUCKET: ${{ secrets.S3_ASSETS_BUCKET }}
+          REPO: ${{ github.workspace }}
         run: |
-          aws s3 sync $REPO_PATH/$DEPLOY_DIRECTORY s3://$S3_ASSETS_BUCKET \
+          aws s3 sync $REPO s3://aboutme.lycuid.dev \
           --exclude ".git*" --exclude "README" --delete --acl public-read

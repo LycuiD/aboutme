@@ -10,30 +10,30 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%2210%22%20fill%3D%22white%22%20stroke%3D%22none%22%2F%3E%3Ctext%20fill%3D%22black%22%20x%3D%226%22%20y%3D%2215%22%3E%CE%BB%3C%2Ftext%3E%3C%2Fsvg%3E" />
   <style>
     :root {
-      --color-primary:    #393939;
-      --color-secondary:  #131313;
+      --color-primary: #393939;
+      --color-secondary: #131313;
     }
     *, ::after, ::before {
       box-sizing: border-box;
     }
     html {
-      font-family: monospace;
       background-color: white;
       color: var(--color-primary);
+      font-size: .9rem;
     }
-    body { margin: 0; padding: 0; }
-    a:hover { border-bottom: 1px solid blue; }
+    h1, h2, h3, h4, h5, strong,
+    h1 *, h2 *, h3 *, h4 *, h5 *, strong * { color: var(--color-secondary); }
+    h1.inline, h2.inline, h3.inline, h4.inline, h5.inline { display: inline; }
+    a:hover { text-decoration: underline; }
     a, a:visited {
       text-decoration: none;
       color: blue;
     }
-    h1, h2, h3, h4, h5, strong,
-    h1 *, h2 *, h3 *, h4 *, h5 *, strong * { color: var(--color-secondary); }
     hr {
       border: none;
       height: 4px;
-      border-top:     1px dashed var(--color-secondary);
-      border-bottom:  1px dashed var(--color-secondary);
+      border-top: 1px dashed var(--color-primary);
+      border-bottom: 1px dashed var(--color-primary);
     }
     ul {
       padding: 0;
@@ -50,8 +50,8 @@
       margin-right: .5rem;
       text-shadow: none;
     }
-    ul.custom li:before {
-      content: attr(data-custom);
+    ul li[data-bullet]::before {
+      content: attr(data-bullet);
     }
     .container {
       padding-left: 15px;
@@ -66,148 +66,173 @@
       margin-bottom: 1em;
       width: 100%;
     }
-    section.bordered {
+    .bordered {
       margin: 10px 0;
       padding: 25px 15px;
       border: 1px solid var(--color-primary);
-      box-shadow: 3px 3px var(--color-primary);
+    }
+    fieldset > legend {
+      font-size: 1.2rem;
+      text-decoration: underline;
+    }
+    footer {
+      margin-bottom: 2rem;
     }
   </style>
 </head>
 <body>
-  <header class="container"><h2>Abhishek S. Kadam</h2></header>
+  <header class="container"><h2>Abhishek Kadam</h2></header>
   <main class="container">
+
     <section id="info" class="bordered">
       <div>
-        email: <a href="mailto:abhishekk19@gmail.com">abhishekk19@gmail.com</a>
+        email: <a href="mailto:abhishekk19@gmail.com">
+          abhishekk19@gmail.com
+        </a>
       </div>
       <div>
-        github:
-        <a target="_blank" href="https://github.com/lycuid">https://github.com/lycuid</a>
+        github: <a target="_blank" href="https://github.com/lycuid">
+          https://github.com/lycuid
+        </a>
       </div>
       <div>
-        linkedin:
-        <a target="_blank" href="https://linkedin.com/in/abhishek-kadam-26a06170">https://linkedin.com/in/abhishek-kadam-26a06170</a>
+        linkedin: <a target="_blank" href="https://linkedin.com/in/abhishek-kadam-26a06170">
+          https://linkedin.com/in/abhishek-kadam-26a06170
+        </a>
       </div>
       <div>
-        personal webpage:
-        <a target="_blank" href="https://lycuid.dev">https://lycuid.dev</a>
+        personal webpage: <a target="_blank" href="https://lycuid.dev">
+          https://lycuid.dev
+        </a>
       </div>
     </section>
 
-    <section id="achievements" class="bordered">
-      <div><strong><u>Achievements:</u></strong></div>
-      Job approach by
+    <section id="pinned">
+      <h3><u>Worthy mention</u></h3>
+      Being approached by
       <strong>
-        <span style="color: #427FE8;">G</span><span style="color: #EB2041;">O</span><span style="color: #FBC145;">O</span><span style="color: #427FE8;">G</span><span style="color: #00BE61;">L</span><span style="color: #EB2041;">E</span></strong> (2018),
-      Unfortunately didn't get in <small>(still, so far, the greatest achievement).</small>
+        <span style="color: #427FE8;">G</span><span style="color: #EB2041;">O</span><span style="color: #FBC145;">O</span><span style="color: #427FE8;">G</span><span style="color: #00BE61;">L</span><span style="color: #EB2041;">E</span>
+      </strong>
+      for an opportunity to interview (2018), twice (2021), based on my compettive programming performance/history (<i>Never actually led to an official interview though</i>).
     </section>
 
     <section id="summary">
       <h3><u>Summary</u></h3>
       <ul>
-        <li>Software Engineer, and a minimalist (of sorts).</li>
-        <li>Enthusiastic about *nix systems, casual distro/wm hopper.</li>
+        <li>Software Engineer, opinionated polyglot developer and a minimalist (of sorts).</li>
+        <li>Enthusiastic and comfortable with daily driving *nix system.</li>
+        <li>Writing software as a hobby (mostly tools for linux), for day-to-day use.</li>
         <li>
-          <code>Software Interests:
-            <ul class="custom">
-              <li data-custom="-"><span>Writing Parsers, <i>suckless-like</i> software.</span></li>
-              <li data-custom="-">System Programming.</li>
-              <li data-custom="-">Reincarnating old video games, solving puzzles.</li>
-              <li data-custom="-">Ricing and automating stuff on GNU/Linux.</li>
+          <div>Software Interests:
+            <ul>
+              <li data-bullet="-">General purpose tools, parsing tools.</li>
+              <li data-bullet="-">Experimenting with different (paradigms/design) programming languages.</li>
+              <li data-bullet="-">System Programming, solving puzzles.</li>
+              <li data-bullet="-"><span>Building <i>new</i> things.</span></li>
             </ul>
-          </code>
+          </div>
         </li>
-        <li>Currently dabbling in web technologies (>3 years, professionally).</li>
-        <li>Dropped out of college 2nd year (certain reasons), Computer Science (B. Tech).</li>
-        <li>love solving puzzles, video games, music etc.</li>
+        <li>Dropped out of college 2nd year, Computer Science (B. Tech).</li>
       </ul>
+    </section>
 
-      <u><h3>Coding Hobbies</h3></u>
+    <section id="coding-hobbies">
+      <h3><u>Coding Hobbies</u></h3>
+      <strong>Solving puzzles on..</strong><br />
       <u>CodeWars</u>: <a target="_blank" href="https://www.codewars.com/users/lycuid">https://www.codewars.com/users/lycuid</a>
       <small>(Haskell, Golang, C++, Python 3)</small><br />
       <u>LeetCode</u>: <a target="_blank" href="https://leetcode.com/lycuid">https://leetcode.com/lycuid</a>
       <small>(Golang)</small><br />
-      <u>Project Euler</u>: <small>(Haskell)</small><br />
+      <u>Project Euler</u>: <small>(Haskell)</small><br /><br />
+      <div><strong>Technologies I use..</strong></div>
+      <div><u>Regularly</u>: C, Haskell, Rust, Python, Typescript.</div>
+      <div><u>Frequently</u>: Golang, Erlang.</div>
+      <div><u>Occasionally</u>: Common lisp, GNU Guile, Racket Scheme.</div>
+      <br /><small><i>(Note: All of my side/hobby projects are listed on Github &lt;<a target="_blank" href="https://github.com/lycuid/">https://github.com/lycuid/</a>&gt;, not here.)</i></small><br />
     </section>
     <hr />
 
-    <section id="education">
-      <h3><u>Education History:</u></h3>
-      <div><u>School</u>:</div>
-      <div>S.T.E.S's Sinhagad Public School (2010)</div>
-      <div>Grade: A (85%)</div>
-      <div><u>Higher Secondary School</u>: (Junior College - class 11<sup>th</sup>, 12<sup>th</sup>)</div>
-      <div>S.T.E.S's Sinhagad Public School</div>
-      <div>Branch: Computer Science, Mathematics. (2012)</div>
-      <div>Grade: A (72%)</div>
-
-      <div><u>College</u>:</div>
-      <div>S.T.E.S's Sinhagad Public School</div>
-      <div>Branch: Computer Science (B. Tech). (Dropped out in 2014 (for certain reasons))</div>
-      <div>Grade: --</div>
-    </section>
-    <hr />
     <section id="employment">
       <h3><u>Employment History</u></h3>
-      <strong><u>Senior Full Stack Developer</u></strong> @ Care24 (Aegis Care Advisors Pvt. Ltd.)<br />
-      <small>Sep 17 - Oct 19 (~2 years)</small><br /><br />
-      <strong><u>Phase 1</u></strong>: (~1.5 months) (web developer)
-      <ul>
-        <li>Maintaining the legacy code</li>
-        <li>refactoring, testing (python, js) etc.</li>
-        <li>Creating REST APIs</li>
-        <li>Business Metric visualization (angularjs, reactjs).</li>
-      </ul>
-      <div class="padded">
-        <strong><u>Front-end Technologies</u></strong>:<br />
-        Reactjs (\w webpack, babel) | AngularJs | Lots of vanilla js<br />
-        <strong><u>Back-end Technologies</u></strong>:<br />
-        Django 1.8 | Python 2 | Django REST-Framework<br />
-        <strong><u>Other</u></strong>:<br />
-        Postgresql<br />
-      </div>
-      <strong><u>Phase 2</u></strong>: (2 years) (junior -&gt; senior full stack developer)
-      <ul>
-        <li>Entire devops and backend dev for 2 standalone company products (AWS, python, shell).</li>
-        <li>Cost reduction for primary VPS infrastructure (AWS, devops).</li>
-        <li>Revamped deployment for primary application (shell, AWS, Bitbucket).</li>
-        <li>Consumers' Email, SMS, IVR Automation and third party integrations (python, js).</li>
-        <li>Payment gateway Integration (python).</li>
-        <li>Verification and Background check Tool (\w third party integration).</li>
-        <li>Automating tickets and Email Management Tool (GSuite, Gmail API).</li>
-        <li>Automating Consumer Bookings (React, Typescript)</li>
-        <li>other third party integrations: Google maps, Gmail API etc (python, js).</li>
-        <li>new features, automatation tools for existing CRM, real time notifications etc.</li>
-      </ul>
-      <div class="padded">
-        <strong><u>Front-end Technologies</u></strong>:<br />
-        Reactjs (\w webpack) | Typescript | AngularJs | Angular 8<br />
-        <strong><u>Back-end Technologies</u></strong>:<br />
-        Django 1.8/2.2 | Python 2/3 | Shell | Django REST Framework<br />
-        <strong><u>Other</u></strong>:<br />
-        AWS | Apollo2/GraphQL | Redis | RabbitMQ | Postgresql<br />
-      </div>
+      <fieldset>
+        <legend>Care24 (Aegis Care Advisors Pvt. Ltd.)</legend>
+        <small>Sep 17 - Oct 19 (~2 years)</small><br /><br />
+        <strong><u>Full-Stack Web Developer</u></strong> (~1.5 months)
+        <br />
+        <u>Team projects</u>
+        <ul>
+          <li>Maintaining the legacy code</li>
+          <li>refactoring, testing etc (python, js).</li>
+          <li>Creating REST APIs</li>
+        </ul>
+        <br />
+        <u>Solo Projects</u>
+        <ul>
+          <li><span>Business Metric visualization tool (<u><i>used by operation and marketing team</i></u>).</span></li>
+          <li><span>A <i>Simple</i> general purpose tabular report generation tool (<u><i>the <b>most used</b> app by <b>every single</b> team</i></u>).</span></li>
+          <li><span>Web interface that automated about 40% work, while adding a better structure (<u><i>used by finance team</i></u>).</span></li>
+        </ul>
+        <div class="padded">
+          <u>Front-end Tech</u>:<br />
+          Reactjs | AngularJs | JQuery | vanilla javascript.<br />
+          <u>Back-end Tech</u>:<br />
+          Django 1.8 | Python 2 | Django REST Framework<br />
+          <u>Other</u>:<br />
+          Postgresql<br />
+        </div>
+        <strong><u>Senior Full-Stack Engineer</u></strong> (2 years)
+        <br />
+        <u>Team Projects</u>
+        <ul>
+          <li>A Grading system which led to automating bookings (python, reactjs).</li>
+          <li><span>Optimizing primary VPS leading to monthly cost reduction upto <strong><i><u>60%</u></i></strong> (AWS).</span></li>
+        </ul>
+        <br />
+        <u>Solo Projects</u>
+        <ul>
+          <li>Complete devops and backend dev for 2 indepedently launched apps (AWS, python, shell).</li>
+          <li>Deployment pipeline revamp for primary app (shell, AWS, Bitbucket).</li>
+          <li>Email, SMS, IVR Automation (python, js, third party integrations).</li>
+          <li>New Payment gateway Integration (python).</li>
+          <li>Verification and Background check Tool (\w third party integration).</li>
+          <li>In-house email management tool (GSuite, Gmail API).</li>
+          <li>Automating tickets using the in-house email management tool.</li>
+        </ul>
+        <div class="padded">
+          <u>Front-end Tech</u>:<br />
+          Reactjs | Typescript | AngularJs | Angular 8<br />
+          <u>Back-end Tech</u>:<br />
+          Django 1.8/2.2 | Python 2/3 | Shell | Django REST Framework<br />
+          <u>Other</u>:<br />
+          AWS | Apollo2/GraphQL | Redis | RabbitMQ | Postgresql<br />
+        </div>
+      </fieldset>
       <br />
 
-      <strong><u>Script Writer and Web/Desktop App Developer</u></strong> freelancer<br />
-      <small>Mar 12 - Sep 17 (&gt; 5 years)</small><br />
-      <p>worked with different technologies, in quite a few different areas of market, as required by the client.</p>
-      <div class="padded">
-        </u>Languages used</u>:<br />
-        PHP | Python 2/3 | C/C++
-      </div>
+      <fieldset>
+        <legend>Freelancer / Self employed (while in college).</legend>
+        <small>Mar 12 - Sep 17 (&gt; 5 years)</small><br /><br />
+        <strong><u>Script Writer and Web/Desktop App Developer</u></strong>
+        <div class="padded">
+          <u>Languages used</u>:<br />
+          PHP | Python 2/3 | C
+        </div>
+      </fieldset>
     </section>
+    <br />
     <hr />
   </main>
+
   <footer class="container">
-    <section id="extra" class="bordered">
-      <div><u>Other stuff I use</u>: (non professional, side projects etc)</div><br />
-      <div><strong><u>Regularly</u>:</strong> Haskell, C/C++, Golang.</div>
-      <div><strong><u>Frequently</u>:</strong> Rust, GatsbyJs.</div>
-      <div><strong><u>Occasionally</u>:</strong> Clisp.</div>
+    <section id="education">
+      <h3><u>Education Summary</u></h3>
+      <div><u>School</u>: <code>Grade: A (score: 85%)</code></div>
+      <div>S.T.E.S's Sinhagad Public School (2010)</div>
+      <div><u>Higher Secondary School</u>: (class 11<sup>th</sup>, 12<sup>th</sup>) <code>Grade: A (score: 72%)</code></div>
+      <div>S.T.E.S's Sinhagad Public School (Computer Science, Mathematics) (2012)</div>
+      <div><u>College</u>: <code>Grade: --</code></div>
+      <div>S.I.E.S Graduate School of Technology (Engineering - Computer Science) (Dropped out 2<sup>nd</sup> year).</div>
     </section>
   </footer>
 </body>
 </html>
-
