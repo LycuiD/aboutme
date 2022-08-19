@@ -1,0 +1,46 @@
+name: pages
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - "generate.py"
+      - ".github/workflows/pages.yml"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone and checkout.
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup Python v3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Generate webpage.
+        env:
+          GRAPHQL_GITHUB_TOKEN: ${{ secrets.GRAPHQL_GITHUB_TOKEN }}
+        run: python generate.py
+
+      - name: Uploading artifacts.
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "public"
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
