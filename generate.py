@@ -1,11 +1,15 @@
 #!/usr/bin/env python
-# vim:fdm=marker
 
 import urllib.request as request
 import os, json
+from datetime import datetime
+
+def DEBUG(*args, **kwargs):
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"[{now}][DEBUG]", *args, **kwargs)
 
 FILE = os.path.join("public", "index.html")
-Query = """
+QUERY = """
 query {
     user(login: "lycuid") {
         pinnedItems(first: 100, types: REPOSITORY) {
@@ -26,50 +30,59 @@ query {
 }
 """
 
-def RequestRepoData():
-    req         = request.Request("https://api.github.com/graphql")
-    req.data    = json.dumps({"query": Query}).encode("utf-8")
-    req.method  = "POST"
-    req.headers = {
-        "Authorization": f"""Bearer {os.environ.get("GRAPHQL_GITHUB_TOKEN")}""",
-        "Content-Type": "application/json",
-    }
-    repos = json.loads(request.urlopen(req).read())["data"]["user"]["pinnedItems"]["nodes"]
-    repos = map(lambda repo: {**repo, "language": repo["languages"]["nodes"][0]["name"]}, repos)
+class RepoData(object):
+    CACHE_FILE = "cache.json"
+    def __init__(self):
+        repos = self.CachedData()
+        if not repos:
+            DEBUG("Making HTTP request.")
+            with open(self.CACHE_FILE, "w+") as cache:
+                DEBUG("Writing to cache file.")
+                cache.write(json.dumps(self.RequestData()))
+                cache.flush()
+            repos = self.CachedData()
+        self.data = "".join(map(self.repo_template, repos or []))
 
-    repo_template = lambda repo: f"""
-    <fieldset>
-        <legend>{repo["name"]}</legend>
-        <div class="main">
-            {repo["description"]}<br /><br />
-            <u><a target="_blank" href="{repo["url"]}">{repo["url"]}</a></u>
-        </div>
-        <div class="footer">
-            <code>Written&nbsp;in:&nbsp;{repo["language"]}</code>
-        </div>
-    </fieldset>
-    """
-    return "".join(map(repo_template, repos))
+    def dump(self):
+        return self.data
 
-CACHE_FILE = "cache.html"
-def CachedRepoData():
-    if os.path.exists(CACHE_FILE):
-        print("[DEBUG] template cache file found.")
-        with open(CACHE_FILE, "r") as cache:
-            print("[DEBUG] reading from template cache file.")
-            return cache.read()
-    print("[DEBUG] template cache file not found.")
+    @staticmethod
+    def repo_template(repo):
+        return f"""
+        <fieldset>
+            <legend>{repo["name"]}</legend>
+            <div class="main">
+                {repo["description"]}<br /><br />
+            </div>
+            <div class="footer">
+                <small>
+                    <a target="_blank" href="{repo["url"]}">{repo["url"]}</a>
+                </small>
+                <code>Written&nbsp;in:&nbsp;{repo["language"]}</code>
+            </div>
+        </fieldset>
+        """
 
-def GetRepoData():
-    repo_data = CachedRepoData()
-    if not repo_data:
-        print("[DEBUG] Making HTTP request.")
-        with open(CACHE_FILE, "w+") as cache:
-            print("[DEBUG] Writing to cache file.")
-            cache.write(RequestRepoData())
-            cache.flush()
-        repo_data = CachedRepoData()
-    return repo_data or ""
+    def RequestData(self):
+        req         = request.Request("https://api.github.com/graphql")
+        req.data    = json.dumps({"query": QUERY}).encode("utf-8")
+        req.method  = "POST"
+        req.headers = {
+            "Authorization": f"Bearer {os.environ.get('GRAPHQL_GITHUB_TOKEN')}",
+            "Content-Type": "application/json",
+        }
+        repos = json.loads(request.urlopen(req).read())["data"]["user"]["pinnedItems"]["nodes"]
+        repos = map(lambda repo: {**repo, "language": repo["languages"]["nodes"][0]["name"]}, repos)
+        return list(repos)
+
+
+    def CachedData(self):
+        if os.path.exists(self.CACHE_FILE):
+            DEBUG("template cache file found.")
+            with open(self.CACHE_FILE, "r") as cache:
+                DEBUG("reading from template cache file.")
+                return json.loads(cache.read())
+        DEBUG("template cache file not found.")
 
 def Section(title, children):
     return f"""
@@ -102,6 +115,12 @@ if __name__ == "__main__":
         *, ::after, ::before {
             box-sizing: border-box;
         }
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
         a:visited {
             color: blue;
         }
@@ -126,7 +145,7 @@ if __name__ == "__main__":
         #hobby-projects .project-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-gap: 10px;
+            grid-gap: 15px;
         }
         #hobby-projects .project-container fieldset {
             display: grid;
@@ -137,8 +156,7 @@ if __name__ == "__main__":
         }
         #hobby-projects .project-container fieldset .footer {
             display: flex;
-            height: 1.2em;
-            margin-top: 1em;
+            flex-direction: column;
         }
         </style>
     </head>
@@ -177,20 +195,21 @@ if __name__ == "__main__":
                 <li>Dropped out of college 2nd year, Computer Science (B. Tech).</li>
             </ul>
         """)+"""
+        <hr />
 
-        """+Section("Hobby Projects", '<div class="project-container">'+GetRepoData()+'</div>')+"""
+        """+Section("Hobby Projects", '<div class="project-container">'+RepoData().dump()+'</div>')+"""
 
         """+Section("Technologies I use", """
             <div><u>Regularly</u>: C, Golang, Haskell, Rust, Python, Typescript, Javascript.</div>
-            <div><u>Frequently</u>: C++</div>
-            <div><u>Occasionally</u>: Erlang, Common lisp, GNU Guile, Racket Scheme.</div>
+            <div><u>Frequently</u>: C++, Guile Scheme</div>
+            <div><u>Occasionally</u>: Erlang, Common lisp, Racket Scheme.</div>
         """)+"""
-        <hr />
 
         """+Section("Employment", """
             <fieldset>
                 <legend>Care24 (Aegis Care Advisors Pvt. Ltd.)</legend>
                 <small>Sep 17 - Oct 19 (~2 years)</small><br />
+                <br />
                 <strong>Full-Stack Web Developer</strong> (~1.5 months)
                 <br />
                 <u>Team projects</u>
@@ -213,6 +232,7 @@ if __name__ == "__main__":
                     <u>Other</u>:<br />
                     Postgresql<br />
                 </div>
+                <br />
                 <strong>Senior Full-Stack Engineer</strong> (2 years)
                 <br />
                 <u>Team Projects</u>
@@ -252,7 +272,6 @@ if __name__ == "__main__":
             </fieldset>
         """)+"""
         <br />
-        <hr />
         </main>
 
         <footer>
