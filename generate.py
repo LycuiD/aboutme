@@ -4,7 +4,15 @@ import urllib.request as request
 import os, json
 from datetime import datetime
 
-def DEBUG(*args, **kwargs):
+from typing import TypedDict, Optional, cast
+
+class Repository(TypedDict):
+    name: str
+    url: str
+    description: str
+    languages: list[str]
+
+def dbg(*args, **kwargs):
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"[{now}][DEBUG]", *args, **kwargs)
 
@@ -33,21 +41,17 @@ query {
 class RepoData(object):
     CACHE_FILE = "cache.json"
     def __init__(self):
-        repos = self.CachedData()
-        if not repos:
-            DEBUG("Making HTTP request.")
+        if not (repos := self.CachedData()):
+            dbg("Making HTTP request.")
             with open(self.CACHE_FILE, "w+") as cache:
-                DEBUG("Writing to cache file.")
+                dbg("Writing to cache file.")
                 cache.write(json.dumps(self.RequestData()))
                 cache.flush()
-            repos = self.CachedData()
-        self.data = "".join(map(self.repo_template, repos or []))
-
-    def dump(self):
-        return self.data
+            repos = self.CachedData() or []
+        self.data = "".join(map(self.repo_template, repos))
 
     @staticmethod
-    def repo_template(repo):
+    def repo_template(repo: Repository) -> str:
         return f"""
         <fieldset>
             <legend>{repo["name"]}</legend>
@@ -55,15 +59,15 @@ class RepoData(object):
                 {repo["description"]}<br /><br />
             </div>
             <div class="footer">
-                <small>
-                    <a target="_blank" href="{repo["url"]}">{repo["url"]}</a>
-                </small>
-                <code>Written&nbsp;in:&nbsp;{repo["language"]}</code>
+                <a target="_blank" href="{repo["url"]}">{repo["url"]}</a>
+                <br />
+                <code>{", ".join(repo["languages"])}</code>
             </div>
         </fieldset>
         """
 
-    def RequestData(self):
+    # make http request to get repository data from github.
+    def RequestData(self) -> list[Repository]:
         req         = request.Request("https://api.github.com/graphql")
         req.data    = json.dumps({"query": QUERY}).encode("utf-8")
         req.method  = "POST"
@@ -71,18 +75,20 @@ class RepoData(object):
             "Authorization": f"Bearer {os.environ.get('GRAPHQL_GITHUB_TOKEN')}",
             "Content-Type": "application/json",
         }
-        repos = json.loads(request.urlopen(req).read())["data"]["user"]["pinnedItems"]["nodes"]
-        repos = map(lambda repo: {**repo, "language": repo["languages"]["nodes"][0]["name"]}, repos)
+        repo_nodes = json.loads(request.urlopen(req).read())["data"]["user"]["pinnedItems"]["nodes"]
+        repos = map(lambda repo: cast(Repository, {
+            **repo, "languages": list(map(lambda node: node["name"], repo["languages"]["nodes"]))
+        }), repo_nodes)
         return list(repos)
 
-
-    def CachedData(self):
+    # return github repository data if already saved in the cache file.
+    def CachedData(self) -> Optional[list[Repository]]:
         if os.path.exists(self.CACHE_FILE):
-            DEBUG("template cache file found.")
+            dbg("template cache file found.")
             with open(self.CACHE_FILE, "r") as cache:
-                DEBUG("reading from template cache file.")
+                dbg("reading from template cache file.")
                 return json.loads(cache.read())
-        DEBUG("template cache file not found.")
+        dbg("template cache file not found.")
 
 def Section(title, children):
     return f"""
@@ -155,8 +161,7 @@ if __name__ == "__main__":
             font-style: italic;
         }
         #hobby-projects .project-container fieldset .footer {
-            display: flex;
-            flex-direction: column;
+            font-size: smaller;
         }
         </style>
     </head>
@@ -170,12 +175,14 @@ if __name__ == "__main__":
             """+Info("linkedin", "https://linkedin.com/in/abhishek-kadam-26a06170", "https://linkedin.com/in/abhishek-kadam-26a06170")+"""
             """+Info("personal", "https://lycuid.github.io", "https://lycuid.github.io")+"""
         </section>
+        <br />
 
         <i><strong><u>Worthy&nbsp;Mention:</u>&nbsp;</strong>Being approached by&nbsp;
             <strong>
                 <span style="color: #427FE8;">G</span><span style="color: #EB2041;">O</span><span style="color: #FBC145;">O</span><span style="color: #427FE8;">G</span><span style="color: #00BE61;">L</span><span style="color: #EB2041;">E</span>
             </strong>
             &nbsp;for an opportunity to interview (2018), twice (2021), based on my compettive programming performance/history (Never actually led to an official interview though).</i>
+            <hr />
 
         """+Section("Summary", """
             <ul>
@@ -197,11 +204,11 @@ if __name__ == "__main__":
         """)+"""
         <hr />
 
-        """+Section("Hobby Projects", '<div class="project-container">'+RepoData().dump()+'</div>')+"""
+        """+Section("Hobby Projects", '<div class="project-container">'+RepoData().data+'</div>')+"""
 
         """+Section("Technologies I use", """
-            <div><u>Regularly</u>: C, Golang, Haskell, Rust, Python, Typescript, Javascript.</div>
-            <div><u>Frequently</u>: C++, Guile Scheme</div>
+            <div><u>Regularly</u>: C, Golang, Haskell, Python, Typescript.</div>
+            <div><u>Frequently</u>: Guile Scheme, Rust, C++</div>
             <div><u>Occasionally</u>: Erlang, Common lisp, Racket Scheme.</div>
         """)+"""
 
@@ -242,8 +249,8 @@ if __name__ == "__main__":
                 </ul>
                 <u>Individual Projects</u>
                 <ul>
-                    <li>Complete devops and backend dev for 2 indepedently launched apps (AWS, python, shell).</li>
-                    <li>Deployment pipeline revamp for primary app (shell, AWS, Bitbucket).</li>
+                    <li>Complete devops and backend dev for 2 indepedently launched apps (AWS, python).</li>
+                    <li>Deployment pipeline revamp for primary app (AWS, Bitbucket).</li>
                     <li>Email, SMS, IVR Automation (python, js, third party integrations).</li>
                     <li>New Payment gateway Integration (python).</li>
                     <li>Verification and Background check Tool (\\w third party integration).</li>
@@ -254,7 +261,7 @@ if __name__ == "__main__":
                     <u>Front-end Tech</u>:<br />
                     Reactjs | Typescript | AngularJs | Angular 8<br />
                     <u>Back-end Tech</u>:<br />
-                    Django 1.8/2.2 | Python 2/3 | Shell | Django REST Framework<br />
+                    Django 1.8/2.2 | Python 2/3 | Django REST Framework<br />
                     <u>Other</u>:<br />
                     AWS | Apollo2/GraphQL | Redis | RabbitMQ | Postgresql<br />
                 </div>
@@ -265,9 +272,15 @@ if __name__ == "__main__":
                 <legend>Freelancer / Self employed (while in college).</legend>
                 <small>Mar 12 - Sep 17 (&gt; 5 years)</small><br />
                 <strong>Script Writer and Web/Desktop App Developer</strong>
+                <ul>
+                    <li>Landing pages for events by various local communities.</li>
+                    <li>Website with voting mechanism for various festivals (local).</li>
+                    <li>Desktop GUI application for some local businesses.</li>
+                    <li>Landing page with Custom CMS dashboard from ground up, for a brand new startup (https://k3technologies.co.in).</li>
+                </ul>
                 <div class="padded">
                     <u>Languages used</u>:<br />
-                    PHP | Python 2/3 | C
+                    PHP | Python 2 | C | Tcl/Tk (Tkinter with python).
                 </div>
             </fieldset>
         """)+"""
