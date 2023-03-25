@@ -23,16 +23,19 @@ query {
         pinnedItems(first: 100, types: REPOSITORY) {
             nodes {
                 ... on Repository {
-                    name
-                    url
-                    description
-                    languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
-                        nodes {
-                            name
-                        }
-                    }
+                    ... RepositoryData
                 }
             }
+        }
+    }
+}
+fragment RepositoryData on Repository {
+    name
+    url
+    description
+    languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+        nodes {
+            name
         }
     }
 }
@@ -43,9 +46,10 @@ class RepoData(object):
     def __init__(self):
         if not (repos := self.CachedData()):
             dbg("Making HTTP request.")
+            data = json.dumps(self.RequestData())
             with open(self.CACHE_FILE, "w+") as cache:
                 dbg("Writing to cache file.")
-                cache.write(json.dumps(self.RequestData()))
+                cache.write(data)
                 cache.flush()
             repos = self.CachedData() or []
         self.data = "".join(map(self.repo_template, repos))
@@ -53,17 +57,12 @@ class RepoData(object):
     @staticmethod
     def repo_template(repo: Repository) -> str:
         return f"""
-        <fieldset>
-            <legend>{repo["name"]}</legend>
-            <div class="main">
-                {repo["description"]}<br /><br />
-            </div>
-            <div class="footer">
-                <a target="_blank" href="{repo["url"]}">{repo["url"]}</a>
-                <br />
-                <code>{", ".join(repo["languages"])}</code>
-            </div>
-        </fieldset>
+        <span style="display:flex;justify-content:space-between;">
+            <span><u><i>{repo["name"]}</i></u>: <small>{repo["description"]}</small></span>
+            <small style="width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            {", ".join(repo["languages"])}
+            </small>
+        </span>
         """
 
     # make http request to get repository data from github.
@@ -75,11 +74,20 @@ class RepoData(object):
             "Authorization": f"Bearer {os.environ.get('GRAPHQL_GITHUB_TOKEN')}",
             "Content-Type": "application/json",
         }
-        repo_nodes = json.loads(request.urlopen(req).read())["data"]["user"]["pinnedItems"]["nodes"]
-        repos = map(lambda repo: cast(Repository, {
-            **repo, "languages": list(map(lambda node: node["name"], repo["languages"]["nodes"]))
-        }), repo_nodes)
-        return list(repos)
+        data = json.loads(request.urlopen(req).read())["data"]["user"]
+        repositories = list(
+            map(
+                lambda repo: cast(Repository, repo),
+                map(
+                    lambda repo: {
+                        **repo,
+                        "languages": list(map(lambda n: n["name"], repo["languages"]["nodes"])),
+                    },
+                    data["pinnedItems"]["nodes"]
+                )
+            )
+        )
+        return repositories
 
     # return github repository data if already saved in the cache file.
     def CachedData(self) -> Optional[list[Repository]]:
@@ -90,20 +98,24 @@ class RepoData(object):
                 return json.loads(cache.read())
         dbg("template cache file not found.")
 
+def A(link: str, text: Optional[str] = None) -> str:
+    return f"""<a target="_blank" href="{link}">{text or link}</a>"""
+
 def Section(title, children):
     return f"""
-    <section id={"-".join(title.lower().split())}>
-        <h3><u>{title}</u></h3>
+    <fieldset id={"-".join(title.lower().split())}>
+        <legend><h3><u>{title}</u></h3></legend>
         {children}
-    </section>
+    </fieldset>
     """
 
-def Info(label, link, text):
-  return f"""<div>{label}: <a target="_blank" href="{link}">{text}</a></div>"""
+def Info(label: str, link: str, text: Optional[str] = None):
+  return f"""<div>{label}: """+A(link, text)+"""</div>"""
 
 if __name__ == "__main__":
     if not os.path.exists(os.path.dirname(FILE)):
         os.mkdir(os.path.dirname(FILE))
+    repo = RepoData()
     with open(FILE, "w+") as file:
         html = """
     <!DOCTYPE html>
@@ -116,11 +128,26 @@ if __name__ == "__main__":
         <style>
         :root {
             --color-primary: #393939;
-            --color-secondary: #131313;
+            --color-secondary: #dedede;
+        }
+        html {
+            background-color: white;
+            color: var(--color-primary);
+        }
+        @media (min-width: 857px) {
+            body {
+                max-width: 65%;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
         *, ::after, ::before {
             box-sizing: border-box;
+            font-family: 'Arial';
         }
+        ul { margin: .5em 0; }
+        hr { background-color: white; }
+        fieldset { border-color: white; }
         a {
             text-decoration: none;
         }
@@ -130,148 +157,134 @@ if __name__ == "__main__":
         a:visited {
             color: blue;
         }
-        html {
-            background-color: white;
-            color: var(--color-primary);
+        .page {
+            height:960px;
+            overflow:hidden;
         }
         .padded {
+            font-size: smaller;
             padding-left: 5em;
-            margin-top: .5em;
-            margin-bottom: .5em;
             width: 100%;
         }
         .bordered {
             margin: 10px 0;
-            padding: 25px 15px;
-            border: 1px solid var(--color-primary);
+            padding: 1em .5em;
+            border: 1px solid var(--color-secondary);
         }
         fieldset > legend {
             text-decoration: underline;
         }
-        #hobby-projects .project-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-gap: 15px;
-        }
-        #hobby-projects .project-container fieldset {
-            display: grid;
-            grid-template-rows: 1fr auto;
-        }
-        #hobby-projects .project-container fieldset .main {
-            font-style: italic;
-        }
-        #hobby-projects .project-container fieldset .footer {
-            font-size: smaller;
-        }
         </style>
     </head>
     <body>
-        <header><h2>Abhishek Kadam</h2></header>
-        <main>
+        <header class="page">
+            <h2>Abhishek Kadam</h2>
+            <section id="info" class="bordered">
+                """+Info("email", "mailto:abhishekk19@gmail.com", "abhishekk19@gmail.com")+"""
+                """+Info("github", "https://github.com/lycuid")+"""
+                """+Info("linkedin", "https://linkedin.com/in/abhishek-kadam-26a06170")+"""
+                """+Info("personal", "https://lycuid.github.io")+"""
+            </section>
+            <br />
 
-        <section id="info" class="bordered">
-            """+Info("email", "mailto:abhishekk19@gmail.com", "abhishekk19@gmail.com")+"""
-            """+Info("github", "https://github.com/lycuid", "https://github.com/lycuid")+"""
-            """+Info("linkedin", "https://linkedin.com/in/abhishek-kadam-26a06170", "https://linkedin.com/in/abhishek-kadam-26a06170")+"""
-            """+Info("personal", "https://lycuid.github.io", "https://lycuid.github.io")+"""
-        </section>
-        <br />
-
-        <i><strong><u>Worthy&nbsp;Mention:</u>&nbsp;</strong>Being approached by&nbsp;
+            <i><strong><u>Worthy&nbsp;Mention:</u>&nbsp;</strong>
+            Cleared the hiring '<u>foobar</u>' challenge (2018) by
+            &nbsp;
             <strong>
                 <span style="color: #427FE8;">G</span><span style="color: #EB2041;">O</span><span style="color: #FBC145;">O</span><span style="color: #427FE8;">G</span><span style="color: #00BE61;">L</span><span style="color: #EB2041;">E</span>
             </strong>
-            &nbsp;for an opportunity to interview (2018), twice (2021), based on my compettive programming performance/history (Never actually led to an official interview though).</i>
-            <hr />
+            ,&nbsp;
+            twice (2021), unfortunately, never led to any interview opportunity.
+            </i>
+            <br />
+            <section id="software-interests-experience">
+                <h3><u>Software Interests/Experience</u></h3>
+                <ul>
+                    <li>System software and writing general purpose tools (GNU/linux).</li>
+                    <li>Web development (Full stack).</li>
+                    <li>Compilers and programming language design/paradigm.</li>
+                    <li>Programming puzzles, competitive programming.</li>
+                </ul>
+            </section>
 
-        """+Section("Summary", """
-            <ul>
-                <li>Software Engineer, opinionated polyglot developer and a minimalist (of sorts).</li>
-                <li>Enthusiastic and comfortable with daily driving *nix system.</li>
-                <li>Writing software as a hobby (mostly tools for linux), for day-to-day use.</li>
-                <li>
-                    <div>Software Interests:
-                    <ul>
-                        <li>General purpose tools, parsing tools.</li>
-                        <li>Experimenting with different (paradigms/design) programming languages.</li>
-                        <li>System Programming, solving puzzles.</li>
-                        <li><span>Building <i>new</i> things.</span></li>
-                    </ul>
-                    </div>
-                </li>
-                <li>Dropped out of college 2nd year, Computer Science (B. Tech).</li>
-            </ul>
-        """)+"""
-        <hr />
+            """+Section("Few Hobby Projects", """
+                """+repo.data+"""
+                <br />
+                <small>All the projects (including the above) can be found on github.</small>
+            """)+"""
 
-        """+Section("Hobby Projects", '<div class="project-container">'+RepoData().data+'</div>')+"""
+            """+Section("Technologies I use", """
+                <div><u>Regularly</u>: C, Golang, Haskell, Python, Typescript, Javascript.</div>
+                <div><u>Frequently</u>: Rust, Guile Scheme, C++</div>
+                <div><u>Occasionally</u>: Erlang, Common lisp, Racket Scheme.</div>
+            """)+"""
 
-        """+Section("Technologies I use", """
-            <div><u>Regularly</u>: C, Golang, Haskell, Python, Typescript.</div>
-            <div><u>Frequently</u>: Guile Scheme, Rust, C++</div>
-            <div><u>Occasionally</u>: Erlang, Common lisp, Racket Scheme.</div>
-        """)+"""
-
+            <fieldset id="education">
+                <legend><h3><u>Education</u></h3></legend>
+                <div><u>School</u>: <small>Grade: A (score: 85%)</small></div>
+                <div>S.T.E.S's Sinhagad Public School (2010)</div>
+                <div><u>Higher Secondary School</u>: <small>(class 11<sup>th</sup>, 12<sup>th</sup>) Grade: A (score: 72%)</small></div>
+                <div>S.T.E.S's Sinhagad Public School (Computer Science, Mathematics) (2012)</div>
+                <div><u>College</u>: <code>Grade: --</code> <small>(Dropped out 2<sup>nd</sup> year).</small></div>
+                <div>S.I.E.S Graduate School of Technology (Engineering - Computer Science)
+            </fieldset>
+        </header>
+        <main class="page">
         """+Section("Employment", """
-            <fieldset>
-                <legend>Care24 (Aegis Care Advisors Pvt. Ltd.)</legend>
-                <small>Sep 17 - Oct 19 (~2 years)</small><br />
+            <section>
+                <strong><u>Care24 (Aegis Care Advisors Pvt. Ltd.)</u></strong>&nbsp;|&nbsp;
+                Sep 17 - Oct 19 (~2 years)<br />
                 <br />
-                <strong>Full-Stack Web Developer</strong> (~1.5 months)
+                <u>Full-Stack Web Developer</u> <small>(~1.5 months)</small>
                 <br />
-                <u>Team projects</u>
+                <u><small>[TEAM]</SMALL></U>
                 <ul>
                     <li>Maintaining the legacy code</li>
                     <li>refactoring, testing etc (python, js).</li>
                     <li>Creating REST APIs</li>
                 </ul>
-                <u>Individual Projects</u>
+                <u><small>[INDEPENDENT]</small></u>
                 <ul>
                     <li><span>Business Metric visualization tool (<u><i>used by operation and marketing team</i></u>).</span></li>
-                    <li><span>A <i>Simple</i> general purpose tabular report generation tool (<u><i>the <b>most used</b> app by <b>every single</b> team</i></u>).</span></li>
+                    <li><span>A <i>Simple</i> general purpose tabular report generation tool (<u><i><b>the most used</b></u> app by every team</i>).</span></li>
                     <li><span>Web interface that automated about 40% work, while adding a better structure (<u><i>used by finance team</i></u>).</span></li>
                 </ul>
                 <div class="padded">
-                    <u>Front-end Tech</u>:<br />
-                    Reactjs | AngularJs | JQuery | vanilla javascript.<br />
-                    <u>Back-end Tech</u>:<br />
-                    Django 1.8 | Python 2 | Django REST Framework<br />
-                    <u>Other</u>:<br />
-                    Postgresql<br />
+                    <u>Front-end</u>: <span>Reactjs | AngularJs | JQuery | Javascript.</span><br />
+                    <u>Back-end</u>: <span>Django 1.8 | Python 2 | Django REST Framework.</span><br />
+                    <u>Other</u>: <span>Postgresql.</span><br />
                 </div>
                 <br />
-                <strong>Senior Full-Stack Engineer</strong> (2 years)
+                <u>Senior Full-Stack Engineer</u> (2 years)
                 <br />
-                <u>Team Projects</u>
+                <u><small>[TEAM]</small></u>
                 <ul>
                     <li>A Grading system which led to automating comsumer bookings (python, reactjs).</li>
-                    <li><span>Optimizing primary VPS leading to monthly cost reduction upto <strong><i><u>60%</u></i></strong> (AWS).</span></li>
+                    <li>Managing two small teams (project management, code reviews).</li>
                 </ul>
-                <u>Individual Projects</u>
+                <u><small>[INDEPENDENT]</small></u>
                 <ul>
+                    <li><span>Optimizing primary VPS leading to monthly cost reduction upto <strong><i><u>60%</u></i></strong> (AWS).</span></li>
                     <li>Complete devops and backend dev for 2 indepedently launched apps (AWS, python).</li>
                     <li>Deployment pipeline revamp for primary app (AWS, Bitbucket).</li>
                     <li>Email, SMS, IVR Automation (python, js, third party integrations).</li>
-                    <li>New Payment gateway Integration (python).</li>
+                    <li>Brand Payment gateway (python, third party integration).</li>
                     <li>Verification and Background check Tool (\\w third party integration).</li>
                     <li>In-house email management tool (GSuite, Gmail API).</li>
                     <li>Automating tickets using the in-house email management tool.</li>
                 </ul>
                 <div class="padded">
-                    <u>Front-end Tech</u>:<br />
-                    Reactjs | Typescript | AngularJs | Angular 8<br />
-                    <u>Back-end Tech</u>:<br />
-                    Django 1.8/2.2 | Python 2/3 | Django REST Framework<br />
-                    <u>Other</u>:<br />
-                    AWS | Apollo2/GraphQL | Redis | RabbitMQ | Postgresql<br />
+                    <u>Front-end</u>: <span>Reactjs | Typescript | AngularJs | Angular 8.</span><br />
+                    <u>Back-end</u>: <span>Django 1.8/2.2 | Python 2/3 | Django REST Framework.</span><br />
+                    <u>Other</u>: <span>AWS | Apollo2/GraphQL | Redis | RabbitMQ | Postgresql.</span><br />
                 </div>
-            </fieldset>
-            <br />
+            </section>
+            <hr />
 
-            <fieldset>
-                <legend>Freelancer / Self employed (while in college).</legend>
-                <small>Mar 12 - Sep 17 (&gt; 5 years)</small><br />
-                <strong>Script Writer and Web/Desktop App Developer</strong>
+            <section>
+                <strong><u>Freelancer / Self employed (while in college).</u></strong>&nbsp;|&nbsp;
+                Mar 12 - Sep 17 (&gt; 5 years)<br /><br />
+                <u>Script Writer and Web/Desktop App Developer</u>
                 <ul>
                     <li>Landing pages for events by various local communities.</li>
                     <li>Website with voting mechanism for various festivals (local).</li>
@@ -279,27 +292,14 @@ if __name__ == "__main__":
                     <li>Landing page with Custom CMS dashboard from ground up, for a brand new startup (https://k3technologies.co.in).</li>
                 </ul>
                 <div class="padded">
-                    <u>Languages used</u>:<br />
-                    PHP | Python 2 | C | Tcl/Tk (Tkinter with python).
+                    <u>Languages used</u>: <span>PHP | Javascript | JQuery | Python 2 | Tcl/Tk (Tkinter with python).</span>
                 </div>
-            </fieldset>
-        """)+"""
-        <br />
-        </main>
-
-        <footer>
-            <section id="education">
-                <h3><u>Education Summary</u></h3>
-                <div><u>School</u>: <code>Grade: A (score: 85%)</code></div>
-                <div>S.T.E.S's Sinhagad Public School (2010)</div>
-                <div><u>Higher Secondary School</u>: (class 11<sup>th</sup>, 12<sup>th</sup>) <code>Grade: A (score: 72%)</code></div>
-                <div>S.T.E.S's Sinhagad Public School (Computer Science, Mathematics) (2012)</div>
-                <div><u>College</u>: <code>Grade: --</code></div>
-                <div>S.I.E.S Graduate School of Technology (Engineering - Computer Science) (Dropped out 2<sup>nd</sup> year).</div>
             </section>
-        </footer>
+        """)+"""
+        </main>
     </body>
     </html>
         """
         file.write("".join(map(lambda s: s.strip(), html.strip().split("\n"))))
         file.flush()
+        dbg("Done!.")
