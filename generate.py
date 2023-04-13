@@ -255,12 +255,13 @@ if __name__ == "__main__":
                     <u>Other</u>: <span>Postgresql.</span><br />
                 </div>
                 <br />
-                <u>Senior Full-Stack Engineer</u> (2 years)
+                <u>Senior Software Engineer</u> (2 years)
                 <br />
                 <u><small>[TEAM]</small></u>
                 <ul>
                     <li>A Grading system which led to automating comsumer bookings (python, reactjs).</li>
                     <li>Managing two small teams (project management, code reviews).</li>
+                    <li>Mentoring developers and interns.</li>
                 </ul>
                 <u><small>[INDEPENDENT]</small></u>
                 <ul>
