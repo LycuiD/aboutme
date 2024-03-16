@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Abhishek Kadam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%2210%22%20fill%3D%22white%22%20stroke%3D%22none%22%2F%3E%3Ctext%20fill%3D%22black%22%20x%3D%226%22%20y%3D%2215%22%3E%CE%BB%3C%2Ftext%3E%3C%2Fsvg%3E" />
+    <style>
+        :root {
+            --color-primary: #393939;
+            --color-secondary: #dedede;
+        }
+
+        html {
+            background-color: white;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body {
+            width: 768px;
+            font-size: small;
+            display: flex;
+            flex-direction: column;
+        }
+
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+            font-family: 'Arial';
+        }
+
+        ul {
+            margin: .5em 0;
+        }
+
+        hr {
+            background-color: white;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: blue;
+        }
+
+        fieldset {
+            border: none;
+        }
+
+        .padded {
+            font-size: smaller;
+            padding-left: 5em;
+            width: 100%;
+        }
+
+        .bordered {
+            border: .25px solid var(--color-secondary);
+        }
+
+        fieldset>legend {
+            text-decoration: underline;
+        }
+
+        #info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kv {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="page">
+        <h2>Abhishek Kadam</h2>
+        <section id="info" class="bordered" style="padding: 1em .5em;">
+            <code>email:&nbsp;
+                <a href="mailto:abhishekk19@gmail.com">
+                    abhishekk19@gmail.com
+                </a>
+            </code>
+            <code>github:&nbsp;
+                <a href="https://github.com/lycuid">
+                    https://github.com/lycuid
+                </a>
+            </code>
+            <code>linkedin:&nbsp;
+                <a href="https://linkedin.com/in/abhishek-kadam-26a06170">
+                    https://linkedin.com/in/abhishek-kadam-26a06170
+                </a>
+            </code>
+            <code>personal:&nbsp;
+                <a href="https://lycuid.github.io">
+                    https://lycuid.github.io
+                </a>
+            </code>
+        </section>
+
+        <fieldset id="technologies-i-use" class="bordered">
+            <legend>
+                <h3><u>Technologies I use</u></h3>
+            </legend>
+            <div><u>Regularly</u>: c, golang, haskell, python, typescript, javascript.</div>
+            <div><u>Frequently</u>: rust, guile scheme, c++</div>
+            <div><u>Occasionally</u>: erlang, racket scheme.</div>
+        </fieldset>
+    </header>
+
+    <main class="page">
+        <fieldset id="employment">
+            <legend>
+                <h3><u>Employment</u></h3>
+            </legend>
+            <section>
+                <div class="kv">
+                    <strong><u>ApeLabs (Rosnil technologies Pvt. Ltd.)</u></strong>
+                    <code>May 23 - present</code>
+                </div>
+                <br />
+                <u>Lead Software Engineer</u> (current)
+                <br />
+                <u><small>[TEAM]</small></u>
+                <ul>
+                </ul>
+                <u><small>[INDEPENDENT]</small></u>
+                <ul>
+                </ul>
+                <div class="padded">
+                    <u>Front-end</u>: <span>NextJs | Typescript | Framer motion | GSAP</span><br />
+                    <u>Back-end</u>: <span>Django 4 | Python 3 | Django REST Framework.</span><br />
+                    <u>Other</u>: <span>AWS | Docker (\w compose) | Redis | RabbitMQ | Postgresql.</span><br />
+                </div>
+                <br />
+            </section>
+            <br />
+
+            <section>
+                <div class="kv">
+                    <strong><u>Care24 (Aegis Care Advisors Pvt. Ltd.)</u></strong>
+                    <code>Sep 17 - Oct 19 (~2 years)</code>
+                </div>
+                <br />
+                <u>Senior Software Engineer</u> (2 years)
+                <br />
+                <u><small>[TEAM]</small></u>
+                <ul>
+                    <li>A Grading system which led to automating comsumer bookings (python, reactjs).</li>
+                    <li>Managing two small teams (project management, code reviews).</li>
+                    <li>Mentoring developers and interns.</li>
+                </ul>
+                <u><small>[INDEPENDENT]</small></u>
+                <ul>
+                    <li><span>Optimizing primary VPS leading to monthly cost reduction upto
+                            <strong><i><u>60%</u></i></strong> (AWS).</span></li>
+                    <li>Complete devops and backend dev for 2 indepedently launched apps (AWS, python).</li>
+                    <li>Deployment pipeline revamp for primary app (AWS, Bitbucket).</li>
+                    <li>Email, SMS, IVR automation (python, js, third party integrations).</li>
+                    <li>Payment gateway integration and internal workflow (python, third party integration).</li>
+                    <li>Verification and background check Tool (\\w third party integration).</li>
+                    <li>In-house email (gmail) management tool (GSuite, Gmail API).</li>
+                    <li>Automating tickets using the in-house email management tool.</li>
+                </ul>
+                <div class="padded">
+                    <u>Front-end</u>: <span>Reactjs | Typescript | AngularJs | Angular 8.</span><br />
+                    <u>Back-end</u>: <span>Django 1.8/2.2 | Python 2/3 | Django REST Framework.</span><br />
+                    <u>Other</u>: <span>AWS | Apollo2/GraphQL | MongoDB | Redis | RabbitMQ.</span><br />
+                </div>
+                <br />
+                <u>Full-Stack Web Developer</u> <small>(~1.5 months)</small>
+                <br />
+                <u><small>[TEAM]</SMALL></U>
+                <ul>
+                    <li>Maintaining the legacy code</li>
+                    <li>refactoring, testing etc (python, js).</li>
+                    <li>Creating REST APIs</li>
+                </ul>
+                <u><small>[INDEPENDENT]</small></u>
+                <ul>
+                    <li><span>Business Metric visualization tool (<u><i>used by operation and marketing
+                                    team</i></u>).</span></li>
+                    <li><span>A <i>Simple</i> general purpose tabular report generation tool (<u><i><b>the most
+                                        used</b></u> app by every team</i>).</span></li>
+                    <li><span>Web interface that automated about 40% work, while adding a better structure (<u><i>used
+                                    by finance team</i></u>).</span></li>
+                </ul>
+                <div class="padded">
+                    <u>Front-end</u>: <span>Reactjs | AngularJs | JQuery | Javascript.</span><br />
+                    <u>Back-end</u>: <span>Django 1.8 | Python 2 | Django REST Framework.</span><br />
+                    <u>Other</u>: <span>Postgresql.</span><br />
+                </div>
+            </section>
+            <br />
+
+            <section>
+                <div class="kv">
+                    <strong><u>Freelancer / Self employed (as a student).</u></strong>
+                    <code>Mar 12 - Sep 17 (&gt; 5 years)</code>
+                </div><br />
+                <u>Script Writer and Web/Desktop App Developer</u>
+                <ul>
+                    <li>Landing pages for events by various local communities.</li>
+                    <li>Website with voting mechanism for various festivals (local).</li>
+                    <li>Desktop GUI application for some local businesses.</li>
+                    <li>Landing page with Custom CMS dashboard from ground up, for a brand new startup
+                        (https://k3technologies.co.in).</li>
+                </ul>
+                <div class="padded">
+                    <u>Languages used</u>: <span>PHP | Javascript | JQuery | Python 2 | Tcl/Tk (Tkinter with
+                        python).</span>
+                </div>
+            </section>
+        </fieldset>
+    </main>
+
+    <footer class="page">
+        <fieldset id="few-hobby-projects" class="bordered">
+            <legend>
+                <h3><u>Few Hobby Projects</u></h3>
+            </legend>
+            <span style="display:flex; justify-content:space-between;">
+                <span><u><i>cluless</i></u>: <small>Window manager.</small></span>
+                <span>C, Makefile</span>
+            </span>
+            <span style="display:flex; justify-content:space-between;">
+                <span><u><i>clubar</i></u>: <small>Statusbar.</small></span>
+                <span>C, Makefile</span>
+            </span>
+            <span style="display:flex; justify-content:space-between;">
+                <span><u><i>cluterm</i></u>: <small>Terminal Emulator.</small></span>
+                <span>C, Makefile</span>
+            </span>
+            <span style="display:flex; justify-content:space-between;">
+                <span><u><i>cluscheme</i></u>: <small>Scheme language interpreter.</small></span>
+                <span>C++, Makefile</span>
+            </span>
+        </fieldset>
+
+        <fieldset id="education" class="bordered">
+            <legend>
+                <h3><u>Education</u></h3>
+            </legend>
+            <div><u>School</u>: <small>Grade: A (score: 85%)</small></div>
+            <div>S.T.E.S's Sinhagad Public School (2010)</div>
+            <div><u>Higher Secondary School</u>: <small>(class 11<sup>th</sup>, 12<sup>th</sup>) Grade: A (score:
+                    72%)</small></div>
+            <div>S.T.E.S's Sinhagad Public School (Computer Science, Mathematics) (2012)</div>
+            <div><u>College</u>: <code>Grade: --</code> <small>(Dropped out 2<sup>nd</sup> year).</small></div>
+            <div>S.I.E.S Graduate School of Technology (Engineering - Computer Science)
+        </fieldset>
+    </footer>
+
+</body>
+
+</html>
