@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - "index.html"
       - "generate.py"
       - ".github/workflows/pages.yml"
 jobs:
@@ -24,7 +25,7 @@ jobs:
       - name: Generate webpage.
         env:
           GRAPHQL_GITHUB_TOKEN: ${{ secrets.GRAPHQL_GITHUB_TOKEN }}
-        run: python generate.py
+        run: pip install -r requirements.txt && mkdir public && python generate.py index.jinja > public/index.html
 
       - name: Uploading artifacts.
         uses: actions/upload-pages-artifact@v1
