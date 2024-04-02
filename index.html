@@ -1,3 +1,7 @@
+<!--
+vim:et:ts=4:sw=4
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,6 +85,11 @@
         .kv {
             display: flex;
             justify-content: space-between;
+            padding: .75rem .5rem;
+        }
+
+        .highlight {
+            background-color: #ecf0f1;
         }
     </style>
 </head>
@@ -111,13 +120,26 @@
             </code>
         </section>
 
-        <fieldset id="technologies-i-use" class="bordered">
+        <br />
+        <fieldset id="a-few-hobby-projects" class="bordered">
             <legend>
-                <h3><u>Technologies I use</u></h3>
+                <strong><u>(A Few) Hobby Projects</u></strong>
             </legend>
-            <div><u>Regularly</u>: c, golang, haskell, python, typescript, javascript.</div>
-            <div><u>Frequently</u>: rust, guile scheme, c++</div>
-            <div><u>Occasionally</u>: erlang, racket scheme.</div>
+
+            {% for repo in repositories %}
+
+            <span style="display:flex; justify-content:space-between;">
+                <span>
+                    <a href="{{ repo.url }}">
+                        <i>{{ repo.name }}</i>
+                    </a>:&nbsp;
+                    <small>{{ repo.description }}</small>
+                </span>
+                <span>{{ repo.languages|join(", ")}}</span>
+            </span>
+
+            {% endfor %}
+
         </fieldset>
     </header>
 
@@ -127,8 +149,8 @@
                 <h3><u>Employment</u></h3>
             </legend>
             <section>
-                <div class="kv">
-                    <strong><u>ApeLabs (Rosnil technologies Pvt. Ltd.)</u></strong>
+                <div class="kv highlight">
+                    <strong>ApeLabs (Rosnil technologies Pvt. Ltd.)</strong>
                     <code>May 23 - present</code>
                 </div>
                 <br />
@@ -136,22 +158,38 @@
                 <br />
                 <u><small>[TEAM]</small></u>
                 <ul>
+                    <li>Company Landing page and front-end for online store (Nextjs, Framer-motion, tailwind).</li>
+                    <li>Mobile application for primary product (Flutter) "<strong><i><u>ongoing</u></i></strong>".</li>
+                    <li>Distributed LLM training, over multiple gpus across multiple systems, for a custom chatbot -- currently only for faq/customer-support etc (pytorch, huggingface-transformer) "<strong><i><u>ongoing</u></i></strong>".</li>
                 </ul>
                 <u><small>[INDEPENDENT]</small></u>
                 <ul>
+                    <li>Reviewing code, handling deployment, and managing/mentoring a team.</li>
+                    <li>An Independent 'Auth' service for user authentication, identity and user profile management (python).</li>
+                    <li>
+                        Entire backend infrastructure, database structure and system design for an online store which included:
+                        <ul>
+                            <li>A simple 'Cart' service (with ability to mark and reuse "stale" carts).</li>
+                            <li>A scalable 'Product' service which handled items with both staticly defined attributes (color etc) as well as dynamic attributes (engraving/stickers from user's input).</li>
+                            <li>Third party payment gateway and shipment service integration.</li>
+                            <li>Streamlining and automating shipment queues on valid payments.</li>
+                            <li>Automated customer communication on order status changes (rabbitmq, celery).</li>
+                        </ul>
+                    </li>
+                    <li>Complete devops for the online store (Docker (\w compose), AWS)</li>
                 </ul>
                 <div class="padded">
-                    <u>Front-end</u>: <span>NextJs | Typescript | Framer motion | GSAP</span><br />
-                    <u>Back-end</u>: <span>Django 4 | Python 3 | Django REST Framework.</span><br />
-                    <u>Other</u>: <span>AWS | Docker (\w compose) | Redis | RabbitMQ | Postgresql.</span><br />
+                    <u>Front-end</u>: NextJs | Typescript | Tailwindcss | Framer motion | GSAP<br />
+                    <u>Back-end</u>: Django 4 | Python 3 | Django REST Framework.<br />
+                    <u>Other</u>: AWS | Docker (\w compose) | Pytorch | Flutter | Huggingface Transformer | Redis | RabbitMQ | Postgresql.<br />
                 </div>
                 <br />
             </section>
             <br />
 
             <section>
-                <div class="kv">
-                    <strong><u>Care24 (Aegis Care Advisors Pvt. Ltd.)</u></strong>
+                <div class="kv highlight">
+                    <strong>Care24 (Aegis Care Advisors Pvt. Ltd.)</strong>
                     <code>Sep 17 - Oct 19 (~2 years)</code>
                 </div>
                 <br />
@@ -169,11 +207,9 @@
                             <strong><i><u>60%</u></i></strong> (AWS).</span></li>
                     <li>Complete devops and backend dev for 2 indepedently launched apps (AWS, python).</li>
                     <li>Deployment pipeline revamp for primary app (AWS, Bitbucket).</li>
-                    <li>Email, SMS, IVR automation (python, js, third party integrations).</li>
-                    <li>Payment gateway integration and internal workflow (python, third party integration).</li>
-                    <li>Verification and background check Tool (\\w third party integration).</li>
+                    <li>Email, SMS, IVR, Ticketing automation (python, js, third party integrations).</li>
+                    <li>Payment gateway, Background Verification integrations (python, third party integration).</li>
                     <li>In-house email (gmail) management tool (GSuite, Gmail API).</li>
-                    <li>Automating tickets using the in-house email management tool.</li>
                 </ul>
                 <div class="padded">
                     <u>Front-end</u>: <span>Reactjs | Typescript | AngularJs | Angular 8.</span><br />
@@ -207,8 +243,8 @@
             <br />
 
             <section>
-                <div class="kv">
-                    <strong><u>Freelancer / Self employed (as a student).</u></strong>
+                <div class="kv highlight">
+                    <strong>Freelancer / Self employed (as a student).</strong>
                     <code>Mar 12 - Sep 17 (&gt; 5 years)</code>
                 </div><br />
                 <u>Script Writer and Web/Desktop App Developer</u>
@@ -228,26 +264,13 @@
     </main>
 
     <footer class="page">
-        <fieldset id="few-hobby-projects" class="bordered">
+        <fieldset id="technologies-i-use" class="bordered">
             <legend>
-                <h3><u>Few Hobby Projects</u></h3>
+                <h3><u>Technologies I use</u></h3>
             </legend>
-            <span style="display:flex; justify-content:space-between;">
-                <span><u><i>cluless</i></u>: <small>Window manager.</small></span>
-                <span>C, Makefile</span>
-            </span>
-            <span style="display:flex; justify-content:space-between;">
-                <span><u><i>clubar</i></u>: <small>Statusbar.</small></span>
-                <span>C, Makefile</span>
-            </span>
-            <span style="display:flex; justify-content:space-between;">
-                <span><u><i>cluterm</i></u>: <small>Terminal Emulator.</small></span>
-                <span>C, Makefile</span>
-            </span>
-            <span style="display:flex; justify-content:space-between;">
-                <span><u><i>cluscheme</i></u>: <small>Scheme language interpreter.</small></span>
-                <span>C++, Makefile</span>
-            </span>
+            <div><u>Regularly</u>: c, golang, haskell, python, typescript, javascript.</div>
+            <div><u>Frequently</u>: rust, guile scheme, c++</div>
+            <div><u>Occasionally</u>: erlang, racket scheme.</div>
         </fieldset>
 
         <fieldset id="education" class="bordered">

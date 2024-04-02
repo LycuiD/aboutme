@@ -24,7 +24,7 @@ jobs:
       - name: Generate webpage.
         env:
           GRAPHQL_GITHUB_TOKEN: ${{ secrets.GRAPHQL_GITHUB_TOKEN }}
-        run: python generate.py
+        run: mkdir public && python generate.py index.html > public/index.html
 
       - name: Uploading artifacts.
         uses: actions/upload-pages-artifact@v1
