@@ -16,10 +16,12 @@ if os.path.exists(path := os.path.join(os.getcwd(), ".env")):
 
 GRAPHQL_GITHUB_TOKEN = os.getenv("GRAPHQL_GITHUB_TOKEN")
 
-graphql_query = """
+GITHUB_USERNAME = "lycuid"
+
+GRAPHQL_QUERY = """
 query {
-    user(login: "lycuid") {
-        pinnedItems(first: 100, types: REPOSITORY) {
+    user(login: "%s") {
+        pinnedItems(first: 4, types: REPOSITORY) {
             nodes {
                 ... on Repository {
                     ... RepositoryData
@@ -38,11 +40,11 @@ fragment RepositoryData on Repository {
         }
     }
 }
-"""
+""" % (GITHUB_USERNAME)
 
 def fetch_pinned_repositories() -> Iterator[Repository]:
     req         = request.Request("https://api.github.com/graphql")
-    req.data    = json.dumps({"query": graphql_query}).encode("utf-8")
+    req.data    = json.dumps({"query": GRAPHQL_QUERY}).encode("utf-8")
     req.method  = "POST"
     req.headers = {
         "Authorization": f"Bearer {GRAPHQL_GITHUB_TOKEN}",
@@ -62,4 +64,4 @@ with open(sys.argv[1], "r") as html:
             .Template(html.read()) \
             .render({ "repositories": fetch_pinned_repositories() })
     print ("".join(map(lambda line: line.strip(), html.split("\n"))), flush=True)
-    #  print (f"[DEBUG({datetime.now()})]:\tTemplate successfully rendered -> '{sys.argv[1]}'", file=sys.stderr, flush=True)
+    print (f"[DEBUG({datetime.now()})]:\tTemplate successfully rendered -> '{sys.argv[1]}'", file=sys.stderr, flush=True)
