@@ -6,7 +6,6 @@ on:
       - master
     paths:
       - "index.html"
-      - "generate.py"
       - ".github/workflows/pages.yml"
 jobs:
   build:
@@ -17,15 +16,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup Python v3.10.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.10.8
-
-      - name: Generate webpage.
-        env:
-          GRAPHQL_GITHUB_TOKEN: ${{ secrets.GRAPHQL_GITHUB_TOKEN }}
-        run: pip install -r requirements.txt && mkdir public && python generate.py index.jinja > public/index.html
+      - name: Copy 'index.html' file to 'public' directory.
+        run: mkdir -p public && cp index.html public
 
       - name: Uploading artifacts.
         uses: actions/upload-pages-artifact@v1

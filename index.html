@@ -1,12 +1,12 @@
 <!--
-vim:ft=htmldjango:et:ts=4:sw=4
+vim:et:ts=4:sw=4
 -->
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Abhishek Kadam</title>
+    <title>Resume | Abhishek S. Kadam</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
     <link rel="icon"
@@ -14,7 +14,7 @@ vim:ft=htmldjango:et:ts=4:sw=4
     <style>
         :root {
             --color-primary: #393939;
-            --color-secondary: #ecf0f1;
+            --color-secondary: #f5f6fa;
             --color-icon: #535c68;
         }
 
@@ -66,6 +66,11 @@ vim:ft=htmldjango:et:ts=4:sw=4
         }
 
         .padded {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: 1fr;
+            grid-column-gap: 10px;
+
             font-size: smaller;
             padding-left: 5em;
             width: 100%;
@@ -75,8 +80,12 @@ vim:ft=htmldjango:et:ts=4:sw=4
             border: .25px solid var(--color-secondary);
         }
 
-        fieldset>legend {
+        fieldset > legend {
             text-decoration: underline;
+        }
+
+        fieldset > legend > strong {
+            font-size: medium;
         }
 
         .kv {
@@ -87,6 +96,16 @@ vim:ft=htmldjango:et:ts=4:sw=4
 
         .highlight {
             background-color: var(--color-secondary);
+        }
+
+        #skills {
+            margin-top: 1rem;
+        }
+
+        #skills ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
         }
 
         .social-icon {
@@ -108,12 +127,25 @@ vim:ft=htmldjango:et:ts=4:sw=4
                 background-color: var(--color-secondary);
             }
         }
+
+        .google-blue {
+            color: #4285F4;
+        }
+        .google-red {
+            color: #DB4437;
+        }
+        .google-yellow {
+            color: #F4B400;
+        }
+        .google-green {
+            color: #0F9D58;
+        }
     </style>
 </head>
 
 <body>
-    <header class="page">
-        <h2>Abhishek Kadam</h2>
+    <header>
+        <h2>Abhishek S. Kadam</h2>
         <section id="info" class="bordered" style="padding: 1em .5em;">
             <div>
                 <code>
@@ -127,8 +159,8 @@ vim:ft=htmldjango:et:ts=4:sw=4
                     </a>
                 </code>
                 <code>
-                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z" />
                     </svg>
                     &nbsp;
@@ -137,8 +169,8 @@ vim:ft=htmldjango:et:ts=4:sw=4
                     </a>
                 </code>
                 <code>
-                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 496 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
                     </svg>
                     &nbsp;
@@ -147,8 +179,8 @@ vim:ft=htmldjango:et:ts=4:sw=4
                     </a>
                 </code>
                 <code>
-                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64H348.7c2.2 20.4 3.3 41.8 3.3 64zm28.8-64H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0H18.6C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192H131.2c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6H344.3c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352H135.3zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6H493.4z" />
                     </svg>
                     &nbsp;
@@ -160,8 +192,8 @@ vim:ft=htmldjango:et:ts=4:sw=4
             <hr />
             <div>
                 <code>
-                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z" />
                     </svg>
                     &nbsp;
@@ -170,8 +202,8 @@ vim:ft=htmldjango:et:ts=4:sw=4
                     </a>
                 </code>
                 <code>
-                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z" />
                     </svg>
                     &nbsp;
@@ -182,44 +214,66 @@ vim:ft=htmldjango:et:ts=4:sw=4
             </div>
         </section>
 
-        <br />
-        <fieldset id="a-few-hobby-projects" class="bordered">
+        <fieldset id="summary" class="bordered">
             <legend>
-                <strong><u>(A Few) Hobby Projects</u></strong>
+                <h3><u>Summary</u></h3>
             </legend>
-
-            {% for repo in repositories %}
-
-            <span style="display:flex; justify-content:space-between;">
-                <span>
-                    <a target="_blank" href="{{ repo.url }}">
-                        <i>{{ repo.name }}</i>
-                    </a>:&nbsp;
-                    <small>{{ repo.description }}</small>
-                </span>
-                <span>{{ repo.languages|join(", ")}}</span>
-            </span>
-
-            {% endfor %}
-
+            <small>
+                <ul>
+                    <li>Software engineer, with most of the professional experience in building web applications, focusing on scalable software, database architecture and system design.</li>
+                    <li>Mainly work with linux based systems, and enjoy writing user-centric (day-to-day) tools (replacing mainstream software).</li>
+                    <li>Enjoy solving programming puzzles and challenges, and also cleared a secret coding challenge by <strong><span class="google-blue">G</span><span class="google-red">o</span><span class="google-yellow">o</span><span class="google-blue">g</span><span class="google-green">l</span><span class="google-red">e</span></strong> called <i>"foobar"</i> (2018) twice (2021).</li>
+            </ul>
             <hr />
-            <small>Other projects can be found on&nbsp;
-                <a target="_blank" href="https://github.com/lycuid">github</a>
+            All my project can be found on my&nbsp; <a target="_blank" href="https://github.com/lycuid">github</a>
             </small>
-
         </fieldset>
 
-        <fieldset id="technologies-i-use" class="bordered">
+        <fieldset id="skills" class="bordered">
             <legend>
-                <h3><u>Technologies used</u></h3>
+                <strong><u>Skills</u></strong>
             </legend>
-            <div><u>Commonly</u>: C, Golang, Docker, Python, HTMX, Typescript, React, Postgresql, AWS.</div>
-            <div><u>Frequently</u>: Haskell, Rust, Graphql, Sqlite, Guile scheme.</div>
-            <div><u>Occasionally</u>: Erlang, C++, Racket scheme, Angularjs.</div>
+            <small>
+                <u>Professional</u><br />
+                <ul>
+                    <li>C</li>
+                    <li>Golang</li>
+                    <li>Database architecture</li>
+                    <li>Docker</li>
+                    <li>Python</li>
+                    <li>HTMX</li>
+                    <li>System design</li>
+                    <li>Web development</li>
+                    <li>Typescript</li>
+                    <li>Javascript</li>
+                    <li>NodeJs</li>
+                    <li>ReactJs</li>
+                    <li>Postgresql</li>
+                    <li>AWS</li>
+                    <li>CI/CD</li>
+                    <li>Project management</li>
+                </ul>
+                <hr />
+                <u>Other</u><br />
+                <ul>
+                    <li>Haskell</li>
+                    <li>Rust</li>
+                    <li>Linux software</li>
+                    <li>Angularjs</li>
+                    <li>Graphql</li>
+                    <li>Sqlite</li>
+                    <li>Guile scheme</li>
+                    <li>Erlang</li>
+                    <li>C++</li>
+                    <li>Racket scheme</li>
+                    <li>Devops</li>
+                </ul>
+            </small>
         </fieldset>
     </header>
+    <br />
 
-    <main class="page">
+    <main style="border-bottom: 1px dashed var(--color-secondary)">
         <fieldset id="employment">
             <legend>
                 <h3><u>Employment</u></h3>
@@ -235,38 +289,27 @@ vim:ft=htmldjango:et:ts=4:sw=4
                 <u><small>[TEAM]</small></u>
                 <ul>
                     <li>Company Landing page and front-end for online store (Nextjs, Framer-motion, tailwind).</li>
-                    <li>Mobile application for primary product (Flutter, React native) "<strong><i><u>ongoing</u></i></strong>".
-                    </li>
-                    <li>Distributed LLM training, over multiple gpus across multiple systems, for a custom chatbot -- currently for faq/customer-support etc (pytorch, huggingface-transformer) "<strong><i><u>ongoing</u></i></strong>".</li>
+                    <li>Mobile application for primary product (React native) "<strong><i><u>ongoing</u></i></strong>".</li>
                 </ul>
                 <u><small>[INDEPENDENT]</small></u>
                 <ul>
                     <li>Reviewing code, handling deployment, and managing/mentoring a team.</li>
-                    <li>An Independent 'Identity' service for user authentication, identity and profile management
-                        (python).</li>
+                    <li>An Independent 'Identity' service for user authentication, identity and profile management (django \w golang microservice).</li>
                     <li>
-                        Entire backend infrastructure, database architecture and system design for an online ecommerce store.
+                        Entire backend infrastructure, database architecture and system design for an online ecommerce store (django \w golang microservices).
                         <ul>
-                            <li>A simple 'Cart' service (with ability to mark and reuse "stale" carts).</li>
-                            <li>A 'Product' service which handled items with both staticly defined attributes (color etc) as well as dynamic attributes (engraving/stickers from user's input).</li>
-                            <li>An 'Discount' service, with ability to embed business logic (constraints such as min value, limited usage etc) mostly at the database level, rather than on application level.</li>
+                            <li>'Cart', 'Product' and 'Discount' service, with ability to embed business logic mostly at the database level, rather than on application level.</li>
                             <li>'Shipment' and 'Transaction' service, with third party service integrations which was hot-swappable via the admin dashboard.</li>
                         </ul>
                     </li>
-                    <li>
-                        Automating tasks for the online ecommerce store.
-                        <ul>
-                            <li>Shipment queues on valid payments</li>
-                            <li>Customer communication on order status updates (django, AWS SQS, celery).</li>
-                        </ul>
-                    </li>
-                    <li>In-house admin dashboard for online store, (django, HTMX).</li>
-                    <li>Complete devops for the online store (Docker (\w compose), AWS)</li>
+                    <li>Automating Shipment queues and customer communication (django, AWS SQS, celery).</li>
+                    <li>In-house admin dashboard for the online store, (django, HTMX).</li>
+                    <li>Server maintainence, deployment pipeline etc for the online store (AWS, Docker (\w compose))</li>
                 </ul>
                 <div class="padded">
-                    <u>Front-end</u>: NextJs | Typescript | Tailwindcss | HTMX | Framer motion<br />
-                    <u>Back-end</u>: Django 4 | Python 3 | Django REST Framework.<br />
-                    <u>Other</u>: AWS | Database architecture | System design | Docker (\w compose) | Pytorch | Flutter | React native | Huggingface Transformer | Redis | RabbitMQ | Postgresql.<br />
+                    <u>Front-end: </u><code>NextJs | Typescript | Javascript | Tailwind | HTMX | Framer motion</code>
+                    <u>Back-end: </u><code>Django 4 | Python 3 | Golang | gRPC | Django REST Framework.</code>
+                    <u>Other: </u><code>AWS | Docker (\w compose) | React native | Redis | RabbitMQ | Postgresql.</code>
                 </div>
                 <br />
             </section>
@@ -282,23 +325,22 @@ vim:ft=htmldjango:et:ts=4:sw=4
                 <br />
                 <u><small>[TEAM]</small></u>
                 <ul>
-                    <li>A Grading system which led to automating comsumer bookings (python, reactjs).</li>
+                    <li>A Grading system which led to automating customer bookings (python, reactjs).</li>
                     <li>Managing two small teams (project management, code reviews).</li>
                     <li>Mentoring developers and interns.</li>
                 </ul>
                 <u><small>[INDEPENDENT]</small></u>
                 <ul>
                     <li><span>Optimizing primary VPS leading to monthly cost reduction upto <strong><i><u>60%</u></i></strong> (AWS).</span></li>
-                    <li>Complete devops and backend dev for 2 indepedently launched apps (AWS, python).</li>
-                    <li>Deployment pipeline revamp for primary app (AWS, Bitbucket).</li>
+                    <li>Complete devops, deployment pipeline and backend dev for 2 indepedently launched apps (AWS, python, BitBucket).</li>
                     <li>Email, SMS, IVR, Ticketing automation (python, js, third party integrations).</li>
-                    <li>Payment gateway, Background Verification integrations (python, third party integration).</li>
+                    <li>Third party integrations which included payment gateway, background verification etc (python, third party integration).</li>
                     <li>In-house email (gmail) management tool (GSuite, Gmail API).</li>
                 </ul>
                 <div class="padded">
-                    <u>Front-end</u>: <span>Reactjs | Typescript | AngularJs | Angular 8.</span><br />
-                    <u>Back-end</u>: <span>Django 1.8/2.2 | Python 2/3 | Django REST Framework.</span><br />
-                    <u>Other</u>: <span>AWS | Apollo2/GraphQL | MongoDB | Redis | RabbitMQ.</span><br />
+                    <u>Front-end: </u><code>Reactjs | Typescript | Javascript | AngularJs | Angular 8.</code>
+                    <u>Back-end: </u><code>Django 1.8/2.2 | Python 2/3 | Django REST Framework.</code>
+                    <u>Other: </u><code>AWS | Apollo2/GraphQL | NodeJs | MongoDB | Redis | RabbitMQ.</code>
                 </div>
                 <br />
                 <u>Full-Stack Web Developer</u> <small>(~1.5 months)</small>
@@ -312,13 +354,13 @@ vim:ft=htmldjango:et:ts=4:sw=4
                 <u><small>[INDEPENDENT]</small></u>
                 <ul>
                     <li><span>Business Metric visualization tool (<u><i>used by operation and marketing team</i></u>).</span></li>
-                    <li><span>A <i>Simple</i> general purpose tabular report generation tool (<u><i><b>the most used</b></u> app by every team</i>).</span></li>
+                    <li><span>A <i>Simple</i> general purpose tabular report generation tool (<i><u><b>the most used</b></u> app by every team</i>).</span></li>
                     <li><span>Web interface that automated about 40% work, while adding a better structure (<u><i>used by finance team</i></u>).</span></li>
                 </ul>
                 <div class="padded">
-                    <u>Front-end</u>: <span>Reactjs | AngularJs | JQuery | Javascript.</span><br />
-                    <u>Back-end</u>: <span>Django 1.8 | Python 2 | Django REST Framework.</span><br />
-                    <u>Other</u>: <span>Postgresql.</span><br />
+                    <u>Front-end: </u><code>Reactjs | AngularJs | JQuery | Javascript.</code>
+                    <u>Back-end: </u><code>Django 1.8 | Python 2 | Django REST Framework.</code>
+                    <u>Other: </u><code>Postgresql.</code>
                 </div>
             </section>
             <br />
@@ -336,14 +378,16 @@ vim:ft=htmldjango:et:ts=4:sw=4
                     <li>Landing page with Custom CMS dashboard from ground up, for a brand new startup (https://k3technologies.co.in).</li>
                 </ul>
                 <div class="padded">
-                    <u>Languages used</u>: <span>PHP | Javascript | JQuery | Python 2 | Tcl/Tk (Tkinter with
-                        python).</span>
+                    <u>Languages used: </u><code>PHP | Javascript | JQuery | Python 2 | Tcl/Tk (Tkinter with
+                        python).</code>
                 </div>
             </section>
         </fieldset>
     </main>
+    <br />
+    <hr />
 
-    <footer class="page">
+    <footer>
         <fieldset id="education" class="bordered">
             <legend>
                 <h3><u>Education</u></h3>
